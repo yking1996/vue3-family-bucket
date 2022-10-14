@@ -13,11 +13,11 @@ export default defineConfig({
 		port: 9099,
 		host: '0.0.0.0',
 		proxy: {
-			'/api': {
-				target: '', // 接口基地址
+			'/music': {
+				target: 'http://101.34.166.157:3000/', // 接口基地址
 				changeOrigin: true,
 				rewrite: path => {
-					return path.replace(/^\/api/, '');
+					return path.replace(/^\/music/, '');
 				}
 			}
 		}
@@ -31,7 +31,15 @@ export default defineConfig({
 	],
 	resolve: {
 		alias: {
-			'@': resolve(__dirname, '.', 'src') // 设置 @ 指向 src
+			'@': resolve(__dirname, '.', 'src'), // 设置 @ 指向 src
+			'@img': resolve(__dirname, '.', 'src/assets/img'),
+		}
+	},
+	css: {
+		preprocessorOptions: {
+			scss: {
+				additionalData: '@use "@/assets/css/theme.scss" as *;'
+			}
 		}
 	},
 	build: {

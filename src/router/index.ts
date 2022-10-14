@@ -6,7 +6,7 @@ import {
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        component: () => import('@/view/home/Home.vue'),
+        redirect: '/discoverMusic',
     },
 ]
 const files = import.meta.glob('./routes/*.ts', { eager: true });//eager为false时是懒加载

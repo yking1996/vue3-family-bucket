@@ -7,13 +7,14 @@ import '@/assets/css/tailwindcss.css'
 //引入element-plus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+// import "@/assets/css/eleTheme.scss"
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+//引入element-icon
+import { iconInit } from "@/utils/elementIconReg"
 //引入pinia
 import { createPinia } from 'pinia'
 //引入router
 import router from './router'
-//引入接口调用
-import { apiInit } from "./api"
 //引入全局组件注册
 import globalComponents from "@/components"
 
@@ -26,6 +27,6 @@ const app = createApp(App)
     .use(store)
     .use(router)
     .use(globalComponents)
-apiInit(app)
+iconInit(app)
 
 app.mount('#app')

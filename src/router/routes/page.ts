@@ -1,9 +1,9 @@
 const routes = [
     {
-        path: '/home',
-        name: 'Home',
-        component: () => import('@/view/home/Home.vue'),
-    },
+        path: '/discoverMusic',
+        name: 'DiscoverMusic',
+        component: () => import('@/view/main/discoverMusic/DiscoverMusic.vue'),
+    }
 ]
 
 export default routes

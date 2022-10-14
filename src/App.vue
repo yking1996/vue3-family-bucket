@@ -1,33 +1,28 @@
 <script setup lang="ts">
+import homePage from "@/view/home/Home.vue"
+import { usePublicStore } from "@/store"
+import { themeList } from "@/types/public"
+
+const PublicStore = usePublicStore()
+const themeName = localStorage.getItem("theme");
+
+onBeforeMount(() => {
+	PublicStore.setCurrentTheme(themeName ? themeName : themeList[0].name)
+})
 </script>
 
 <template>
-	<div id="app">
-		<router-view v-slot="{ Component }">
-			<transition name="fade"
-				mode="out-in"
-				appear>
-				<keep-alive :include="[]">
-					<component :is="Component" />
-				</keep-alive>
-			</transition>
-		</router-view>
+	<div class="app flex justify-center items-center">
+		<home-page />
 	</div>
 </template>
 
 <style scoped lang="scss">
-#app {
+.app {
 	width: 100%;
 	height: 100%;
-
-	.fade-enter-from,
-	.fade-leave-to {
-		opacity: 0;
-	}
-
-	.fade-enter-active,
-	.fade-leave-active {
-		transition: opacity 0.2s ease;
-	}
+	overflow: hidden;
+	background: url("@/assets/img/bg.png");
+	background-size: 100% 100%;
 }
 </style>

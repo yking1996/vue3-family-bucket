@@ -1,8 +1,9 @@
 import request from "@/utils/request"
 import GeneralApi from "@/api/general"
-export function apiInit(app: any) {
-    app.config.globalProperties.$generalApi = new GeneralApi({ host: "/api" }, request);
-    console.log(import.meta.env.BASE_URL)
-    // app.provide("$request", new request(axios, config))
-    // app.provide("$envConfig", config)
+
+const defHost = import.meta.env.VITE_BASE_API
+
+const API = {
+    general: new GeneralApi({ host: defHost }, request)
 }
+export default API
