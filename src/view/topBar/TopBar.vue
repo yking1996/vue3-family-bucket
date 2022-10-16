@@ -2,7 +2,7 @@
     <div class="topBar">
         <div class="flex items-center">
             <i class="iconfont icon-xingqiu rounded-full"></i>
-            <span class="text-white text-xl pl-norm">Cloud Music</span>
+            <span class="text-white text-xl pl-1.5">Cloud Music</span>
         </div>
         <div class="
                 main-menu">

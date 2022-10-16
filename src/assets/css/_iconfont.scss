@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3655592 */
-  src: url('//at.alicdn.com/t/c/font_3655592_38h0w1xw8nf.woff2?t=1665762251083') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3655592_38h0w1xw8nf.woff?t=1665762251083') format('woff'),
-       url('//at.alicdn.com/t/c/font_3655592_38h0w1xw8nf.ttf?t=1665762251083') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_3655592_xqi59cwumzk.woff2?t=1665925148960') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3655592_xqi59cwumzk.woff?t=1665925148960') format('woff'),
+       url('//at.alicdn.com/t/c/font_3655592_xqi59cwumzk.ttf?t=1665925148960') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-recent-play:before {
+  content: "\e605";
+}
+
+.icon-song-list:before {
+  content: "\e60f";
+}
+
+.icon-my-collections:before {
+  content: "\e770";
+}
+
+.icon-my-favorite:before {
+  content: "\e665";
 }
 
 .icon-selected:before {

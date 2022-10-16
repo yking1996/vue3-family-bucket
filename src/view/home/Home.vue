@@ -8,9 +8,9 @@ import leftMenu from "@/view/leftMenu/LeftMenu.vue"
 <template>
 	<div class="home-page">
 		<top-bar />
-		<div>
+		<div class="main-content">
 			<left-menu />
-			<div>
+			<div class="content">
 				<router-view v-slot="{ Component }">
 					<transition name="fade"
 						mode="out-in"
@@ -32,6 +32,17 @@ import leftMenu from "@/view/leftMenu/LeftMenu.vue"
 	width: 1320px;
 	height: 910px;
 	background-color: #fff;
+
+	.main-content {
+		width: 100%;
+		height: calc(100% - 130px);
+		display: flex;
+
+		.content {
+			width: 100%;
+			height: 100%;
+		}
+	}
 
 	.fade-enter-from,
 	.fade-leave-to {
