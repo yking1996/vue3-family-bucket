@@ -3,8 +3,17 @@ const routes = [
         path: '/discoverMusic',
         name: 'DiscoverMusic',
         component: () => import('@/view/main/discoverMusic/DiscoverMusic.vue'),
+        redirect: '/personalRec',
         children: [
-
+            {
+                path: '/personalRec',
+                name: 'PersonalRec',
+                component: () => import('@/view/main/discoverMusic/personalRec/PersonalRec.vue'),
+            }, {
+                path: '/songCharts',
+                name: 'SongCharts',
+                component: () => import('@/view/main/discoverMusic/songCharts/SongCharts.vue'),
+            }
         ]
     }, {
         path: '/radioSet',
@@ -22,7 +31,7 @@ const routes = [
         path: '/myFavorite',
         name: 'MyFavorite',
         component: () => import('@/view/main/myFavorite/MyFavorite.vue')
-    }, 
+    },
 ]
 
 export default routes

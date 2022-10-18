@@ -52,6 +52,19 @@ const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}
         padding-left: 8px !important;
     }
 
+    :deep(.el-menu-item.is-active) {
+        background-color: #F6F6F7
+    }
+
+    :deep(.el-menu-item.is-active) {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    :deep(.el-sub-menu .el-menu-item) {
+        min-width: auto
+    }
+
     :deep(.el-sub-menu__title:hover) {
         background-color: transparent;
     }
@@ -59,19 +72,6 @@ const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}
     :deep(.el-sub-menu__title) {
         padding-left: 8px !important;
         color: #C4C4C4;
-    }
-
-    :deep(.el-menu-item.is-active) {
-        background-color: #F6F6F7
-    }
-
-    :deep(.el-sub-menu .el-menu-item) {
-        min-width: auto
-    }
-
-    :deep(.el-menu-item.is-active) {
-        font-size: 18px;
-        font-weight: bold;
     }
 
     :deep(.el-sub-menu .el-menu-item.is-active) {
