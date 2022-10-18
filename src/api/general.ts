@@ -25,22 +25,9 @@ export default class GeneralApi {
         let url = "";
         return this.request.get(url, { params })
     }
-    ///POST-登录
-    login(data: any) {
-        return this.request.post(
-            this.host + '/org/login/valid',
-            { data }
-        )
-    }
-    getNormalApiTest(params: any) {
-        return this.request.get(
-            this.host + '/news/news/publishList',
-            { params }
-        )
-    }
     getArraybufferApiTest(params: any) {
         return this.request.get(
-            this.host + '/open/getVerify',
+            this.host + '',
             { 
                 params,
                 responseType: 'arraybuffer'

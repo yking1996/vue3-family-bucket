@@ -9,7 +9,7 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
     title: string,
-    icon: string
+    icon?: string
 }>(), {
     title: '',
     icon: ''

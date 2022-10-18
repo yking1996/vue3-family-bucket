@@ -23,7 +23,7 @@ const getPersonalizedData = async () => {
     let res: PersonalizedRes = await API.discoverMusic.getPersonalized(params)
     recPlaylist.value = res.result
 }
-getPersonalizedData()
+// getPersonalizedData()
 
 const goDetail = () => {
 

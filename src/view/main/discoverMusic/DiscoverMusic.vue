@@ -3,7 +3,7 @@
         <div class="top-menu">
             <el-menu router
                 mode="horizontal"
-                :default-active="topMenuGroup[0].url">
+                :default-active="route.path">
                 <el-menu-item :index="item.url"
                     v-for="item in topMenuGroup"
                     :key="item.url">
@@ -19,6 +19,8 @@
 
 <script setup lang="ts">
 import { topMenuGroup } from "@/types/layout/discoverMusic"
+import { useRoute } from "vue-router"
+const route = useRoute()
 
 </script>
 

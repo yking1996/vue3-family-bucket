@@ -23,4 +23,10 @@ export default class DiscoverMusicApi {
             { params }
         )
     }
+    //所有榜单
+    getTopList() {
+        return this.request.get(
+            this.host + '/toplist'
+        )
+    }
 }

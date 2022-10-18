@@ -31,7 +31,7 @@ const getBannersData = async () => {
     //防止获取banners列表后第一页无数据
     carouselRef.value!.next()
 }
-getBannersData()
+// getBannersData()
 </script>
 
 <style lang="scss" scoped>
