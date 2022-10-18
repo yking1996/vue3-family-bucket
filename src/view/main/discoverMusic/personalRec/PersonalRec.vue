@@ -1,13 +1,13 @@
 <template>
     <div class="personal-rec">
         <DisplayBanners />
-        <RecSongList />
+        <RecPlaylist />
     </div>
 </template>
 
 <script setup lang="ts">
 import DisplayBanners from "./components/Banners.vue"
-import RecSongList from "./components/RecSongList.vue"
+import RecPlaylist from "./components/RecPlaylist.vue"
 </script>
 
 <style lang="scss" scoped>

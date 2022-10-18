@@ -1,7 +1,6 @@
 import { 
     GetBannersParams,
-    GetPersonalizedParams,
-    getTopPlayListParams
+    GetPersonalizedParams
 } from "@/types/api/discoverMusic"
 export default class DiscoverMusicApi {
     protected host
@@ -21,13 +20,6 @@ export default class DiscoverMusicApi {
     getPersonalized(params: GetPersonalizedParams) {
         return this.request.get(
             this.host + '/personalized',
-            { params }
-        )
-    }
-    //获取发现音乐-歌单 ( 网友精选碟 )
-    getTopPlayList(params: getTopPlayListParams) {
-        return this.request.get(
-            this.host + '/top/playlist',
             { params }
         )
     }

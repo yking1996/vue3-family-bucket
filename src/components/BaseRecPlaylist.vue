@@ -4,13 +4,13 @@
             @mouseenter="mouseEnter"
             @mouseleave="mouseLeave"
             @click="emit('on-detail')">
-            <BasePlayCount :playCount="songListItem.playCount" />
-            <img :src="songListItem.picUrl">
+            <BasePlayCount :playCount="playListItem.playCount" />
+            <img :src="playListItem.picUrl">
             <i class="iconfont icon-play"
                 v-show="ifHover"
                 @click.stop="emit('on-play')"></i>
         </div>
-        <div @click="emit('on-detail')">{{songListItem.name}}</div>
+        <div @click="emit('on-detail')">{{playListItem.name}}</div>
     </div>
 </template>
 
@@ -18,7 +18,7 @@
 import { PersonalizedResListItem } from "@/types/layout/discoverMusic"
 
 defineProps<{
-    songListItem: PersonalizedResListItem
+    playListItem: PersonalizedResListItem
 }>()
 const ifHover = ref(false)
 const mouseEnter = () => {

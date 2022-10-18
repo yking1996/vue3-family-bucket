@@ -3,9 +3,9 @@
         <BaseTitle title="推荐歌单"
             icon="icon-arrow-right" />
         <div class="song-List-container">
-            <BaseRecSongList v-for="item in recSongList"
+            <BaseRecPlaylist v-for="item in recPlaylist"
                 :key="item.id"
-                :songListItem="item"
+                :playListItem="item"
                 @on-detail="goDetail"
                 @on-play="goPlay" />
         </div>
@@ -15,13 +15,13 @@
 <script setup lang="ts">
 import API from "@/api"
 import { PersonalizedRes, PersonalizedResListItem } from "@/types/layout/discoverMusic"
-const recSongList = ref<PersonalizedResListItem[]>([])
+const recPlaylist = ref<PersonalizedResListItem[]>([])
 const getPersonalizedData = async () => {
     let params = {
         limit: 10
     }
     let res: PersonalizedRes = await API.discoverMusic.getPersonalized(params)
-    recSongList.value = res.result
+    recPlaylist.value = res.result
 }
 getPersonalizedData()
 
