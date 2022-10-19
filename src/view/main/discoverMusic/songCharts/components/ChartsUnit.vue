@@ -20,19 +20,41 @@
 </template>
 
 <script setup lang="ts">
-import { PlaylistDetail, Tracks } from "@/types/layout/playlist"
+import { PlaylistDetail, Tracks, PlaylistDetailRes, SimpleDetailToInit } from "@/types/layout/playlist"
 import dayjs from "dayjs"
+import API from "@/api"
 const props = defineProps<{
-    chartsItem: PlaylistDetail
+    playlistId: number
 }>()
-const topFiveList = computed((): Array<Tracks> => {
-    return props.chartsItem.tracks.splice(0, 5)
+let chartsItem = ref<PlaylistDetail | SimpleDetailToInit>({
+    tracks: [],
+    updateTime: 0,
+    coverImgUrl: ''
 })
-const updateTime = computed(():string => {
-    const time = props.chartsItem.updateTime;
+const topFiveList = computed((): Array<Tracks> => {
+    return chartsItem.value.tracks.splice(0, 5)
+})
+const updateTime = computed((): string => {
+    const time = chartsItem.value.updateTime;
     const month = dayjs(time).month()
     const day = dayjs(time).date()
     return `${month + 1}月${day}日更新`
+})
+const getPlaylistDetailData = async () => {
+    try {
+        let params = {
+            id: props.playlistId
+        }
+        let res: PlaylistDetailRes = await API.playlist.getPlaylistDetail(params)
+        chartsItem.value = res.playlist
+    } catch (error) {
+        console.log(error);
+    }
+}
+watch(() => props.playlistId, () => {
+    getPlaylistDetailData()
+}, {
+    immediate: true
 })
 
 </script>
@@ -40,13 +62,14 @@ const updateTime = computed(():string => {
 <style lang="scss" scoped>
 .charts-unit {
     display: flex;
-    padding: 10px 0 25px;
+    padding: 10px 0 15px;
 }
 
 .cover-container {
     width: 172px;
     height: 172px;
     position: relative;
+
     span {
         position: absolute;
         top: 68%;
@@ -56,6 +79,7 @@ const updateTime = computed(():string => {
         font-size: 12px;
         color: #fff;
     }
+
     img {
         width: 172px;
         height: 172px;
@@ -72,7 +96,7 @@ const updateTime = computed(():string => {
         display: flex;
         height: 34px;
         line-height: 34px;
-        font-size: 14px;
+        font-size: 12px;
         padding: 0 10px;
     }
 
@@ -84,6 +108,7 @@ const updateTime = computed(():string => {
         span:first-child {
             color: #9F9F9F;
             padding-right: 6px;
+            font-size: 14px;
         }
 
         span:nth-child(2) {

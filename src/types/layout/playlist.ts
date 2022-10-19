@@ -284,3 +284,8 @@ export interface PlaylistDetailRes {
 	sharedPrivilege?: any;
 	resEntrance?: any;
 }
+export interface SimpleDetailToInit { 
+    tracks: Tracks[], 
+    updateTime: number,
+    coverImgUrl: string
+}
