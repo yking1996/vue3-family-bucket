@@ -1,16 +1,24 @@
 <template>
     <div class="music-player">
-        player
-        <i class="iconfont icon-next"></i>
+        <LeftArea />
+        <MiddleArea />
+        <RightArea />
     </div>
 </template>
 
 <script setup lang="ts">
-
+import LeftArea from "./components/LeftArea.vue"
+import MiddleArea from "./components/MiddleArea.vue"
+import RightArea from "./components/RightArea.vue"
 </script>
 
 <style lang="scss" scoped>
 .music-player {
-
+    width: 100%;
+    height: 70px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 }
 </style>

@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3655592 */
-  src: url('//at.alicdn.com/t/c/font_3655592_o4zav81t458.woff2?t=1666018341114') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3655592_o4zav81t458.woff?t=1666018341114') format('woff'),
-       url('//at.alicdn.com/t/c/font_3655592_o4zav81t458.ttf?t=1666018341114') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_3655592_6muoigokaeo.woff2?t=1666173812875') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3655592_6muoigokaeo.woff?t=1666173812875') format('woff'),
+       url('//at.alicdn.com/t/c/font_3655592_6muoigokaeo.ttf?t=1666173812875') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,30 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-volume-ctrl:before {
+  content: "\ea0d";
+}
+
+.icon-loop-playback:before {
+  content: "\ea76";
+}
+
+.icon-single-cycle:before {
+  content: "\ea77";
+}
+
+.icon-playlist:before {
+  content: "\ea83";
+}
+
+.icon-order-play:before {
+  content: "\e6a1";
+}
+
+.icon-vip:before {
+  content: "\e65b";
 }
 
 .icon-play-btn:before {
