@@ -18,6 +18,7 @@ import RightArea from "./components/RightArea.vue"
     height: 70px;
     padding: 10px 12px;
     display: flex;
+    border-top: #E1E1E1 1px solid;
     justify-content: space-between;
     position: relative;
 }

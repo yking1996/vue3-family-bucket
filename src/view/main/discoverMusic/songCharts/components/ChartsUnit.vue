@@ -6,7 +6,8 @@
         </div>
         <div class="list-container">
             <div v-for="(item,index) in topFiveList"
-                :key="item.id">
+                :key="item.id"
+                @dblclick="goPlay(item.id)">
                 <span>{{index + 1}}</span>
                 <span>{{item.name}}</span>
                 <span>{{item.ar[0].name}}</span>
@@ -23,6 +24,7 @@
 import { PlaylistDetail, Tracks, PlaylistDetailRes, SimpleDetailToInit } from "@/types/layout/playlist"
 import dayjs from "dayjs"
 import API from "@/api"
+import { usePlayerStore } from "@/store/player"
 const props = defineProps<{
     playlistId: number
 }>()
@@ -51,6 +53,11 @@ const getPlaylistDetailData = async () => {
         console.log(error);
     }
 }
+const PlayerStore = usePlayerStore()
+const goPlay = (id: number) => {
+    PlayerStore.getSongUrlData(id)
+}
+
 watch(() => props.playlistId, () => {
     getPlaylistDetailData()
 }, {
