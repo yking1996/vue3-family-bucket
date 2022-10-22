@@ -15,7 +15,7 @@
             <span>{{formatMusicTime(currentTime)}}</span>
             <el-slider v-model="sliderProgress"
                 :show-tooltip="false" />
-            <span>00:00</span>
+            <span>{{formatMusicTime(currentSong.dt)}}</span>
         </div>
         <audio :src="currentSong.url"
             :autoplay="false"
@@ -51,6 +51,8 @@ const onTimeupdate = () => {
 watch(ifPlaying, async (newValue) => {
     //如果不等待dom更新,audio上的src: currentSong.url不会同步刷新
     await nextTick()
+    console.log(currentSong.value.url);
+    
     if (newValue) {
         audioRef.value!.play()
     } else {

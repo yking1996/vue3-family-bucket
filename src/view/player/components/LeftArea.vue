@@ -1,12 +1,12 @@
 <template>
     <div class="left-area">
-        <img src="@img/bg.png">
+        <img :src="PlayerStore.getAlubmCover">
         <div class="text-info-container">
             <div>
                 <p class="song-name"
                     :class="{'add-scroll-anim': ifNameScroll}"
                     ref="songName">
-                    <span>{{testName}}</span>
+                    <span>{{currentSong.name}}</span>
                 </p>
                 <i class="iconfont icon-vip"
                     v-if="false"></i>
@@ -16,7 +16,7 @@
                 <p class="song-name songwriter"
                     :class="{'add-scroll-anim': ifWriterScroll}"
                     ref="songwriter">
-                    <span>{{testWriter}}</span>
+                    <span>{{PlayerStore.getSingerName}}</span>
                 </p>
             </div>
         </div>
@@ -24,6 +24,10 @@
 </template>
 
 <script setup lang="ts">
+import { usePlayerStore } from "@/store/player"
+import { storeToRefs } from 'pinia'
+const PlayerStore = usePlayerStore()
+const { currentSong } = storeToRefs(PlayerStore)
 const testName = '七里香'
 const testWriter = '周杰伦'
 const testName1 = '七里香11111111111111111112222222222222222222223333333333333'

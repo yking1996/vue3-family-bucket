@@ -1,6 +1,7 @@
 import {
     GetSongUrlParams,
-    GetSongUrlOldParams
+    GetSongUrlOldParams,
+    GetSongDetailParams
 } from "@/types/api/song"
 export default class SongApi {
     protected host
@@ -23,5 +24,11 @@ export default class SongApi {
             { params }
         )
     }
-
+    //获取音乐详情
+    getSongDetail(params: GetSongDetailParams) {
+        return this.request.get(
+            this.host + '/song/detail',
+            { params }
+        )
+    }
 }

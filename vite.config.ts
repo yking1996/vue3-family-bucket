@@ -43,6 +43,7 @@ export default defineConfig({
 		}
 	},
 	build: {
+		// minify: 'terser',
 		//传递给 Terser 的更多 minify 选项。 生产环境去除 console debugger
 		terserOptions: {
 			compress: {
