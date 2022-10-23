@@ -5,6 +5,8 @@ import {
     GetSongDetailRes,
     CurrentSong
 } from "@/types/api/song"
+import NP from "number-precision"
+import { ElMessage } from 'element-plus'
 
 export const usePlayerStore = defineStore('PlayerStore', {
     state: () => ({
@@ -30,21 +32,52 @@ export const usePlayerStore = defineStore('PlayerStore', {
         getSingerName(): string {
             if (this.currentSong.ar.length) {
                 const singerNameList = this.currentSong.ar.map((singer) => singer.name)
-                return singerNameList.join(',')
-            } else {
-                return '未知'
+                return singerNameList.join(' / ')
             }
+            return '未知歌手'
         },
         getAlubmCover(): string {
-            return this.currentSong.al.picUrl ? this.currentSong.al.picUrl : new URL(`../assets/img/defCover.png`, import.meta.url).href;
+            const coverUrl = this.currentSong.al.picUrl
+            return coverUrl ? coverUrl : new URL(`../assets/img/defCover.png`, import.meta.url).href;
+        },
+        getProgressPercent(): number {
+            if (this.currentSong.dt) {
+                return NP.times(NP.divide(this.currentTime, this.currentSong.dt), 100)
+            }
+            return 0
         }
     },
     actions: {
         setCurrentTime(currentTime: number) {
+            //传入的currentTime将以ms为单位，保持和接口返回的单位同步
             this.currentTime = currentTime ? currentTime : 0
         },
         setIfPlaying(ifPlaying: boolean) {
             this.ifPlaying = ifPlaying
+        },
+        initPlayer() {
+            this.currentTime = 0
+            this.currentSong = {
+                id: 0,
+                url: '',
+                al: {
+                    id: 0,
+                    name: '',
+                    picUrl: '',
+                    tns: [],
+                    pic_str: '',
+                    pic: 0
+                },
+                ar: [],
+                name: '',
+                dt: 0
+            }
+            this.ifPlaying = false
+        },
+        goPlaySingle(id: number, level?: string) {
+            this.setIfPlaying(false)//重置播放状态
+            this.getSongUrlData(id, level)
+            this.getSingleDetailData(id)
         },
         //获取歌曲url
         async getSongUrlData(id: number, level?: string) {
@@ -58,17 +91,24 @@ export const usePlayerStore = defineStore('PlayerStore', {
                 const standbyUrl = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
                 if (res.code === 200 && songUrlDetailInfo.code === 200) {
                     this.currentSong.url = songUrlDetailInfo.url ? songUrlDetailInfo.url : standbyUrl
-                } else {
+                } else if (songUrlDetailInfo.code === 403) {
                     this.currentSong.url = standbyUrl
+                } else {
+                    //目前出现的情况有code为-110
+                    ElMessage.error('此歌曲暂不支持播放')
                 }
-                this.currentSong.id = songUrlDetailInfo.id
-                this.ifPlaying = true
+                if (this.currentSong.url) {
+                    this.currentSong.id = songUrlDetailInfo.id
+                    this.ifPlaying = true
+                } else {
+                    this.initPlayer()
+                }
             } catch (error) {
                 console.log(error);
             }
         },
         //获取单首歌曲详情
-        async getSingleSongDetailData(ids: number) {
+        async getSingleDetailData(ids: number) {
             try {
                 let params = { ids }
                 let res: GetSongDetailRes = await API.song.getSongDetail(params)

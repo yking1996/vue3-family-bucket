@@ -1,12 +1,12 @@
 <template>
     <div class="left-area">
-        <img :src="PlayerStore.getAlubmCover">
+        <img :src="getAlubmCover">
         <div class="text-info-container">
             <div>
                 <p class="song-name"
                     :class="{'add-scroll-anim': ifNameScroll}"
                     ref="songName">
-                    <span>{{currentSong.name}}</span>
+                    <span>{{currentSong.name || '未知音乐'}}</span>
                 </p>
                 <i class="iconfont icon-vip"
                     v-if="false"></i>
@@ -16,7 +16,7 @@
                 <p class="song-name songwriter"
                     :class="{'add-scroll-anim': ifWriterScroll}"
                     ref="songwriter">
-                    <span>{{PlayerStore.getSingerName}}</span>
+                    <span>{{getSingerName}}</span>
                 </p>
             </div>
         </div>
@@ -27,18 +27,14 @@
 import { usePlayerStore } from "@/store/player"
 import { storeToRefs } from 'pinia'
 const PlayerStore = usePlayerStore()
-const { currentSong } = storeToRefs(PlayerStore)
-const testName = '七里香'
-const testWriter = '周杰伦'
-const testName1 = '七里香11111111111111111112222222222222222222223333333333333'
-const testWriter1 = '周杰伦11111111111111122222222222222223333333333'
+const { currentSong, getSingerName, getAlubmCover } = storeToRefs(PlayerStore)
 const songName = ref<HTMLElement>()
 const songwriter = ref<HTMLElement>()
 const ifNameScroll = ref(false)
 const ifWriterScroll = ref(false)
 
 onMounted(() => {
-    console.log(songName.value!.clientWidth);
+    // console.log(songName.value!.clientWidth);
     ifNameScroll.value = songName.value!.clientWidth === 150 ? true : false;
     ifWriterScroll.value = songwriter.value!.clientWidth === 200 ? true : false;
 })

@@ -5,17 +5,19 @@
                 class="iconfont"
                 @click="changePlayMode"></i>
             <i class="iconfont icon-previous"></i>
-            <i :class="ifPlaying ? 'icon-pause' :'icon-play'"
+            <i :class="ifPlaying ? 'icon-pause' : 'icon-play'"
                 class="iconfont"
                 @click="changePlayingStatus"></i>
             <i class="iconfont icon-next"></i>
             <i class="iconfont icon-lyric"></i>
         </div>
         <div class="progress-container">
-            <span>{{formatMusicTime(currentTime)}}</span>
+            <span>{{ formatMusicTime(currentTime) }}</span>
             <el-slider v-model="sliderProgress"
-                :show-tooltip="false" />
-            <span>{{formatMusicTime(currentSong.dt)}}</span>
+                :show-tooltip="false"
+                @input="sliderInput"
+                @change="sliderChange" />
+            <span>{{ formatMusicTime(currentSong.dt) }}</span>
         </div>
         <audio :src="currentSong.url"
             :autoplay="false"
@@ -33,7 +35,9 @@ import { storeToRefs } from 'pinia'
 import { formatMusicTime } from "@/utils"
 import NP from "number-precision"
 const PlayerStore = usePlayerStore()
+const { currentTime, ifPlaying, currentSong, getProgressPercent } = storeToRefs(PlayerStore)
 const currentPlayMode = ref(0)
+const audioRef = ref<HTMLAudioElement>()
 const changePlayingStatus = () => {
     PlayerStore.setIfPlaying(!PlayerStore.ifPlaying)
 }
@@ -42,21 +46,37 @@ const changePlayMode = () => {
     currentPlayMode.value = ifFinal ? 0 : currentPlayMode.value + 1
 
 }
+/**
+ * 弃用sliderProgress的computed,改用watch监听
+ * const sliderProgress = computed(() => { return getProgressPercent.value })
+ * 拖拽slider会实时改变v-model: sliderProgress的值
+ * 因此无法使用从store中getter获取的getProgressPercent值作为computed放在v-model上
+ * computed可以set,但getter是readonly的
+ */
 const sliderProgress = ref(0)
-const audioRef = ref<HTMLAudioElement>()
-const { currentTime, ifPlaying, currentSong } = storeToRefs(PlayerStore)
+const ifDragging = ref(false)
+watch(getProgressPercent, (newVal) => {
+    if (!ifDragging.value) {
+        sliderProgress.value = newVal
+    }
+})
+const sliderInput = () => {
+    ifDragging.value = true
+}
+const sliderChange = (val: number) => {
+    ifDragging.value = false
+    // val百分比: [0, 100]    val% * (歌曲时长ms=> 歌曲时长s)
+    audioRef.value!.currentTime = NP.times(NP.divide(val, 100), NP.divide(currentSong.value.dt, 1000))
+}
 const onTimeupdate = () => {
     PlayerStore.setCurrentTime(NP.times(audioRef.value!.currentTime, 1000))
 }
-watch(ifPlaying, async (newValue) => {
+watch(ifPlaying, async (newValue, oldValue) => {
     //如果不等待dom更新,audio上的src: currentSong.url不会同步刷新
     await nextTick()
-    console.log(currentSong.value.url);
-    
-    if (newValue) {
-        audioRef.value!.play()
-    } else {
-        audioRef.value!.pause()
+    // console.log(currentSong.value.url);
+    if (currentSong.value.url) {
+        newValue ? audioRef.value!.play() : audioRef.value!.pause()
     }
 })
 </script>
