@@ -33,10 +33,6 @@ const defUrl = computed(() => {
     return route.matched.length > 1 ? route.matched[0].path : route.path
 })
 
-watch(route, newVal => {
-    console.log(newVal.matched);
-})
-
 const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}`)
 </script>
 

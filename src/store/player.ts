@@ -79,7 +79,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
             this.ifPlaying = false
         },
         goPlaySingle(id: number, level?: string) {
-            this.setIfPlaying(false)//重置播放状态
+            this.initPlayer()//重置播放状态
             this.getSongUrlData(id, level)
             this.getSingleDetailData(id)
         },

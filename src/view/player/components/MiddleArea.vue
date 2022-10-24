@@ -32,6 +32,7 @@ import { playModeGroup } from "@/types/layout/player"
 import { usePlayerStore } from "@/store/player"
 import { storeToRefs } from 'pinia'
 import { formatMusicTime } from "@/utils"
+import { Arrayable } from "element-plus/es/utils"
 import NP from "number-precision"
 const PlayerStore = usePlayerStore()
 const { 
@@ -67,10 +68,10 @@ watch(getProgressPercent, (newVal) => {
 const sliderInput = () => {
     ifDragging.value = true
 }
-const sliderChange = (val: number) => {
+const sliderChange = (val: Arrayable<number>) => {
     ifDragging.value = false
     // val百分比: [0, 100]    val% * (歌曲时长ms=> 歌曲时长s)
-    audioRef.value!.currentTime = NP.times(NP.divide(val, 100), NP.divide(currentSong.value.dt, 1000))
+    audioRef.value!.currentTime = NP.times(NP.divide((val as number), 100), NP.divide(currentSong.value.dt, 1000))
 }
 const onTimeupdate = () => {
     PlayerStore.setCurrentTime(NP.times(audioRef.value!.currentTime, 1000))
