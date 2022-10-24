@@ -1,24 +1,24 @@
 <template>
     <div class="left-menu">
         <el-menu :default-openeds="groupDefOpen"
-            router
-            :default-active="menuGroup[0].url">
+            :default-active="menuGroup[0].url"
+            router>
             <el-menu-item :index="item.url"
                 v-for="item in menuGroup"
                 :key="item.url">
-                <span>{{item.name}}</span>
+                <span>{{ item.name }}</span>
             </el-menu-item>
             <el-sub-menu v-for="(group, gIndex) in myMusicGroup"
                 :key="group.name"
                 :index="`${gIndex}`">
                 <template #title
-                    v-if="group.name">{{group.name}}</template>
+                    v-if="group.name">{{ group.name }}</template>
                 <el-menu-item :index="item.url"
                     v-for="item in group.children"
                     :key="item.url">
                     <i class="iconfont"
                         :class="item.icon"></i>
-                    <span class="pl-1">{{item.name}}</span>
+                    <span class="pl-1">{{ item.name }}</span>
                 </el-menu-item>
             </el-sub-menu>
         </el-menu>
@@ -45,7 +45,7 @@ const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}
 
     :deep(.el-menu-item) {
         border-right: 4px;
-        font-size: 16px;
+        font-size: 14px;
         height: 36px;
         line-height: 36px;
         margin-bottom: 2px;
@@ -57,7 +57,7 @@ const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}
     }
 
     :deep(.el-menu-item.is-active) {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
     }
 
@@ -75,9 +75,13 @@ const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}
     }
 
     :deep(.el-sub-menu .el-menu-item.is-active) {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: normal;
         color: #303133;
+    }
+
+    .iconfont {
+        font-size: 15px;
     }
 }
 </style>

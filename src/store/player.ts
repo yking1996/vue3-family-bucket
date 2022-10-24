@@ -27,6 +27,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
             dt: 0
         } as CurrentSong,
         ifPlaying: false,
+        currentVolume: 100,
     }),
     getters: {
         getSingerName(): string {
@@ -45,6 +46,9 @@ export const usePlayerStore = defineStore('PlayerStore', {
                 return NP.times(NP.divide(this.currentTime, this.currentSong.dt), 100)
             }
             return 0
+        },
+        getAudioCurrentVolume(): number {
+            return NP.divide(this.currentVolume, 100)
         }
     },
     actions: {

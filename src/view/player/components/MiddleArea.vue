@@ -21,7 +21,6 @@
         </div>
         <audio :src="currentSong.url"
             :autoplay="false"
-            controls
             ref="audioRef"
             @timeupdate="onTimeupdate"
             style="margin-top: 20px"></audio>
@@ -35,7 +34,12 @@ import { storeToRefs } from 'pinia'
 import { formatMusicTime } from "@/utils"
 import NP from "number-precision"
 const PlayerStore = usePlayerStore()
-const { currentTime, ifPlaying, currentSong, getProgressPercent } = storeToRefs(PlayerStore)
+const { 
+    currentTime, 
+    ifPlaying, 
+    currentSong, 
+    getProgressPercent,
+    getAudioCurrentVolume } = storeToRefs(PlayerStore)
 const currentPlayMode = ref(0)
 const audioRef = ref<HTMLAudioElement>()
 const changePlayingStatus = () => {
@@ -78,6 +82,9 @@ watch(ifPlaying, async (newValue, oldValue) => {
     if (currentSong.value.url) {
         newValue ? audioRef.value!.play() : audioRef.value!.pause()
     }
+})
+watch(getAudioCurrentVolume, newVal => {
+    audioRef.value!.volume = newVal
 })
 </script>
 
