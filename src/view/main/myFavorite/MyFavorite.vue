@@ -1,6 +1,6 @@
 <template>
-    <div>
-        我喜欢的音乐
+    <div class="isBuilding">
+        <img src="@img/building.png" alt="">
     </div>
 </template>
 

@@ -1,22 +1,38 @@
 <template>
     <div class="charts-unit">
-        <div class="cover-container">
-            <span>{{updateTime}}</span>
-            <img :src="chartsItem.coverImgUrl">
-        </div>
-        <div class="list-container">
-            <div v-for="(item,index) in topFiveList"
-                :key="item.id"
-                @dblclick="goPlay(item.id)">
-                <span>{{index + 1}}</span>
-                <span>{{item.name}}</span>
-                <span>{{item.ar[0].name}}</span>
-            </div>
-            <div>
-                <span>查看全部</span>
-                <i class="iconfont icon-arrow-right"></i>
-            </div>
-        </div>
+        <el-skeleton :loading="skeletonLoading"
+            animated>
+            <template #template>
+                <div class="flex">
+                    <div class="cover-container">
+                        <el-skeleton-item variant="image" />
+                    </div>
+                    <div class="list-container">
+                        <el-skeleton-item v-for="item in 5"
+                            variant="p" />
+                    </div>
+                </div>
+            </template>
+            <template #default>
+                <div class="cover-container">
+                    <span>{{ updateTime }}</span>
+                    <img :src="chartsItem.coverImgUrl">
+                </div>
+                <div class="list-container">
+                    <div v-for="(item, index) in topFiveList"
+                        :key="item.id"
+                        @dblclick="goPlay(item.id)">
+                        <span>{{ index + 1 }}</span>
+                        <span>{{ item.name }}</span>
+                        <span>{{ item.ar[0].name }}</span>
+                    </div>
+                    <div>
+                        <span>查看全部</span>
+                        <i class="iconfont icon-arrow-right"></i>
+                    </div>
+                </div>
+            </template>
+        </el-skeleton>
     </div>
 </template>
 
@@ -42,13 +58,18 @@ const updateTime = computed((): string => {
     const day = dayjs(time).date()
     return `${month + 1}月${day}日更新`
 })
+const skeletonLoading = ref(true)
 const getPlaylistDetailData = async () => {
     try {
         let params = {
             id: props.playlistId
         }
+        skeletonLoading.value = true
         let res: PlaylistDetailRes = await API.playlist.getPlaylistDetail(params)
-        chartsItem.value = res.playlist
+        if (res.code === 200) {
+            chartsItem.value = res.playlist
+            skeletonLoading.value = false
+        }
     } catch (error) {
         console.log(error);
     }
@@ -59,7 +80,9 @@ const goPlay = (id: number) => {
 }
 
 watch(() => props.playlistId, () => {
-    getPlaylistDetailData()
+    setTimeout(() => {
+        getPlaylistDetailData()
+    }, 80);
 }, {
     immediate: true
 })
@@ -88,6 +111,12 @@ watch(() => props.playlistId, () => {
     }
 
     img {
+        width: 172px;
+        height: 172px;
+        border-radius: 6px;
+    }
+
+    .el-skeleton__image {
         width: 172px;
         height: 172px;
         border-radius: 6px;
@@ -149,6 +178,10 @@ watch(() => props.playlistId, () => {
 
     .icon-arrow-right {
         font-size: 14px;
+    }
+
+    .el-skeleton__item {
+        margin-bottom: 2px;
     }
 }
 </style>

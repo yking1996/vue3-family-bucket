@@ -1,76 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="#" />
-    <title>vue3-family-bucket</title>
-  </head>
-  <body>
-    <div id="app">
-      <div class="app-loading">
-        <div class="app-loading__loader"></div>
-        <div class="app-loading__title">页面正在加载中...</div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon"
+    href="#" />
+  <title>vue3-family-bucket</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="stars-container">
+      <div class="sky-space">
+        <div class="sky-stars"></div>
+        <div class="sky-stars"></div>
+        <div class="sky-stars"></div>
+        <div class="sky-stars"></div>
+        <div class="sky-stars"></div>
+        <div class="sky-stars"></div>
       </div>
-      <style>
-        .app-loading {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          background: #fff;
-        }
-  
-        .app-loading__logo {
-          margin-bottom: 30Px;
-        }
-        .app-loading__loader {
-          box-sizing: border-box;
-          width: 100Px;
-          height: 100Px;
-          border: 10Px solid transparent;
-          border-top-color: #000;
-          border-radius: 50%;
-          animation: .5s loader linear infinite;
-          position: relative;
-        }
-  
-        .app-loading__loader:before {
-          box-sizing: border-box;
-          content: '';
-          display: block;
-          width: inherit;
-          height: inherit;
-          position: absolute;
-          top: -10Px;
-          left: -10Px;
-          border: 10Px solid #ccc;
-          border-radius: 50%;
-          opacity: .5;
-        }
-  
-        .app-loading__title {
-          font-size: 24Px;
-          color: #333;
-          margin-top: 30Px;
-        }
-  
-        @keyframes loader {
-          0% {
-            transform: rotate(0deg);
-          }
-  
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      </style>
+      <div class="sky-space-bg">
+        <div class="sky-bg-stars"></div>
+        <div class="sky-bg-stars"></div>
+        <div class="sky-bg-stars"></div>
+        <div class="sky-bg-stars"></div>
+      </div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <div class="app-loading-container">
+      <div class="app-loading__loader"></div>
+      <div class="app-loading__title">Loading...</div>
+    </div>
+    <style>
+      #app {
+        width: 100vw;
+        height: 100vh;
+      }
+      .app-loading-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .app-loading__logo {
+        margin-bottom: 30Px;
+      }
+
+      .app-loading__loader {
+        --r1: 154%;
+        --r2: 68.5%;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background:
+          radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #269af2 80%) center left,
+          radial-gradient(var(--r1) var(--r2) at bottom, #269af2 79.5%, #0000 80%) center center,
+          radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #269af2 80%) center right,
+          #ccc;
+        background-size: 50.5% 220%;
+        background-position: -100% 0%, 0% 0%, 100% 0%;
+        background-repeat: no-repeat;
+        animation: loader 2s infinite linear;
+      }
+
+      .app-loading__title {
+        font-size: 24Px;
+        color: #fff;
+        margin-top: 30Px;
+      }
+
+      @keyframes loader {
+        33% {
+          background-position: 0% 33%, 100% 33%, 200% 33%
+        }
+
+        66% {
+          background-position: -100% 66%, 0% 66%, 100% 66%
+        }
+
+        100% {
+          background-position: 0% 100%, 100% 100%, 200% 100%
+        }
+      }
+
+      .stars-container {
+        display: flex;
+        overflow: hidden !important;
+        position: relative !important;
+        flex: auto !important;
+        flex-direction: column !important;
+        width: 100vw;
+        height: 100vh;
+        background-image: radial-gradient(#04255b, #020a1d);
+      }
+
+      .sky-space-bg {
+        position: absolute;
+        top: 36vh;
+        left: 42vw;
+        height: 16vw;
+        width: 16vw;
+      }
+
+      .sky-bg-stars {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        background-image: radial-gradient(1px 2px at 50px 50px, #eee, rgba(0, 0, 0, 0)), radial-gradient(2px 3px at 20px 35px, #fff, rgba(0, 0, 0, 0)), radial-gradient(3px 3px at 60px 20px, #ddd, rgba(0, 0, 0, 0));
+        background-repeat: repeat;
+        background-size: 200px 200px;
+        opacity: 0.2;
+        animation: opacity 8s infinite;
+      }
+
+      .sky-bg-stars:nth-child(1) {
+        background-position: 0% 90%;
+        animation-delay: 0s;
+      }
+
+      .sky-bg-stars:nth-child(2) {
+        background-position: 50% 10%;
+        animation-delay: 0.6s;
+      }
+
+      .sky-bg-stars:nth-child(3) {
+        background-position: 40% -80%;
+        background-size: 120px 200px;
+        animation-delay: 1.8s;
+      }
+
+      .sky-bg-stars:nth-child(4) {
+        background-position: 150% -80%;
+        background-size: 220px 100px;
+        animation-delay: 3.2s;
+      }
+
+      .sky-space,
+      .sky-stars {
+        position: absolute;
+        top: 0;
+        right: 5vw;
+        bottom: 0;
+        left: 5vw;
+        overflow: hidden;
+      }
+
+      .sky-stars {
+        background-image: radial-gradient(2px 2px at 50px 200px, #eee, rgba(0, 0, 0, 0)), radial-gradient(3px 3px at 40px 60px, #fff, rgba(0, 0, 0, 0)), radial-gradient(4px 5px at 100px 30px, #ddd, rgba(0, 0, 0, 0));
+        background-repeat: repeat;
+        background-size: 380px 380px;
+        opacity: 0;
+        animation-name: zoom;
+        animation-delay: 0s;
+        animation-duration: 10s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: infinite;
+      }
+
+      .sky-stars:nth-child(1) {
+        top: 20vh;
+        bottom: 20vh;
+        left: 10vw;
+        right: 10vw;
+        background-size: 120px 120px;
+        background-position: 10% 90%;
+      }
+
+      .sky-stars:nth-child(2) {
+        background-position: 20% 50%;
+        animation-delay: 0.3s;
+      }
+
+      .sky-stars:nth-child(3) {
+        background-position: 40% 20%;
+        animation-delay: 1.3s;
+      }
+
+      .sky-stars:nth-child(4) {
+        background-position: 50% 10%;
+        background-size: 200px 200px;
+        transform: rotate(60deg);
+        animation-delay: 2.1s;
+      }
+
+      .sky-stars:nth-child(5) {
+        background-position: 30% 30%;
+        background-size: 120px 270px;
+        animation-delay: 3s;
+      }
+
+      .sky-stars:nth-child(6) {
+        background-position: 50% 20%;
+        animation-delay: 5.5s;
+      }
+
+      @keyframes opacity {
+        0% {
+          opacity: 0.2;
+          transform: rotate(-5deg);
+          animation-timing-function: ease-in;
+        }
+
+        50% {
+          opacity: 0.8;
+          transform: rotate(-13deg);
+          animation-timing-function: ease-in;
+        }
+
+        100% {
+          opacity: 0.1;
+          transform: rotate(-20deg);
+          animation-timing-function: ease-in;
+        }
+      }
+
+      @keyframes zoom {
+        0% {
+          opacity: 0.02;
+          transform: scale(0.1);
+          transform: rotate(-20deg);
+          animation-timing-function: ease-in;
+        }
+
+        5% {
+          opacity: 0.05;
+        }
+
+        50% {
+          opacity: 0.6;
+        }
+
+        75% {
+          opacity: 0.3;
+          transform: scale(1.8);
+        }
+
+        100% {
+          opacity: 0.1;
+          transform: scale(2.2);
+        }
+      }
+    </style>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

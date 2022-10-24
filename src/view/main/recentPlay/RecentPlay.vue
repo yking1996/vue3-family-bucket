@@ -1,6 +1,6 @@
 <template>
-    <div>
-        最近播放
+    <div class="isBuilding">
+        <img src="@img/building.png" alt="">
     </div>
 </template>
 

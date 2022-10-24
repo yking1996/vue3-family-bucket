@@ -1,6 +1,6 @@
 <template>
-    <div>
-        我的收藏
+    <div class="isBuilding">
+        <img src="@img/building.png" alt="">
     </div>
 </template>
 

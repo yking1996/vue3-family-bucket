@@ -1,7 +1,7 @@
 <template>
     <div class="left-menu">
         <el-menu :default-openeds="groupDefOpen"
-            :default-active="menuGroup[0].url"
+            :default-active="defUrl"
             router>
             <el-menu-item :index="item.url"
                 v-for="item in menuGroup"
@@ -27,6 +27,16 @@
 
 <script setup lang="ts">
 import { menuGroup, myMusicGroup } from "@/types/layout/leftMenu"
+import { useRoute } from "vue-router"
+const route = useRoute()
+const defUrl = computed(() => {
+    return route.matched.length > 1 ? route.matched[0].path : route.path
+})
+
+watch(route, newVal => {
+    console.log(newVal.matched);
+})
+
 const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}`)
 </script>
 

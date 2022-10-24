@@ -1,23 +1,33 @@
 <template>
     <div class="base-rec-song-list">
-        <div class="cover-container"
-            @mouseenter="mouseEnter"
-            @mouseleave="mouseLeave"
-            @click="emit('on-detail')">
-            <BasePlayCount :playCount="playListItem.playCount" />
-            <img :src="playListItem.picUrl">
-            <i class="iconfont icon-play"
-                v-show="ifHover"
-                @click.stop="emit('on-play')"></i>
-        </div>
-        <div @click="emit('on-detail')">{{playListItem.name}}</div>
+        <el-skeleton :loading="skeletonLoading"
+            animated>
+            <template #template>
+                <div class="cover-container">
+                    <el-skeleton-item variant="image" />
+                </div>
+            </template>
+            <template #default>
+                <div class="cover-container"
+                    @mouseenter="mouseEnter"
+                    @mouseleave="mouseLeave"
+                    @click="emit('on-detail')">
+                    <BasePlayCount :playCount="playListItem.playCount" />
+                    <img :src="playListItem.picUrl">
+                    <i class="iconfont icon-play"
+                        v-show="ifHover"
+                        @click.stop="emit('on-play')"></i>
+                </div>
+                <div @click="emit('on-detail')">{{ playListItem.name }}</div>
+            </template>
+        </el-skeleton>
     </div>
 </template>
 
 <script setup lang="ts">
 import { PersonalizedResListItem } from "@/types/layout/discoverMusic"
 
-defineProps<{
+const props = defineProps<{
     playListItem: PersonalizedResListItem
 }>()
 const ifHover = ref(false)
@@ -32,6 +42,12 @@ const emit = defineEmits([
     'on-play',
     'on-detail'
 ])
+const skeletonLoading = ref(true)
+watch(() => props.playListItem.picUrl, newVal => {
+    skeletonLoading.value = false
+}, {
+    immediate: true
+})
 </script>
 
 <style lang="scss" scoped>
@@ -54,6 +70,7 @@ const emit = defineEmits([
         cursor: pointer;
         color: #373737;
     }
+
     >div:last-child:hover {
         color: #000;
     }
@@ -62,6 +79,12 @@ const emit = defineEmits([
 .cover-container {
     position: relative;
     cursor: pointer;
+
+    .el-skeleton__image {
+        width: 172px;
+        height: 172px;
+        border-radius: 6px;
+    }
 
     >img {
         width: 200px;

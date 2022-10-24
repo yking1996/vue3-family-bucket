@@ -1,6 +1,6 @@
 <template>
-    <div>
-        电台
+    <div class="radio-set isBuilding">
+        <img src="@img/building.png" alt="">
     </div>
 </template>
 
@@ -9,5 +9,6 @@
 </script>
 
 <style lang="scss" scoped>
-
+.radio-set {
+}
 </style>

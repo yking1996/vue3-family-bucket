@@ -1,7 +1,7 @@
 <template>
     <div class="official-charts">
-        <BaseTitle title="官方榜" />
         <div>
+            <BaseTitle title="官方榜" />
             <ChartsUnit v-for="id in idGroup"
                 :playlistId="id" />
         </div>

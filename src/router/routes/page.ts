@@ -26,7 +26,7 @@ const routes = [
     }, {
         path: '/mycollections',
         name: 'Mycollections',
-        component: () => import('@/view/main/mycollections/Mycollections.vue')
+        component: () => import('@/view/main/myCollections/MyCollections.vue')
     }, {
         path: '/myFavorite',
         name: 'MyFavorite',
