@@ -6,7 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
 	//开发或生产环境服务的公共基础路径
-	base: '/demo/',
+	base: '',
 	//作为静态资源服务的文件夹。并在构建期间复制到 outDir 的根目录，并且始终按原样提供或复制而无需进行转换。
 	publicDir: "public",
 	server: {
