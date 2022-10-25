@@ -1,0 +1,1 @@
+import{_ as e}from"./building.36c7ede5.js";import{_ as s,c as t,o,f as c}from"./index.f0238773.js";const _={},n={class:"isBuilding"},r=c("img",{src:e,alt:""},null,-1),a=[r];function i(l,d){return o(),t("div",n,a)}const p=s(_,[["render",i]]);export{p as default};
