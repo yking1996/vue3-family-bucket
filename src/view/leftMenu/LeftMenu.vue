@@ -59,12 +59,11 @@ const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}
     }
 
     :deep(.el-menu-item.is-active) {
-        background-color: #F6F6F7
-    }
-
-    :deep(.el-menu-item.is-active) {
-        font-size: 16px;
+        background-color: #F6F6F7;
+        font-size: 18px;
         font-weight: bold;
+        color: #313131;
+        font-family: '黑体';
     }
 
     :deep(.el-sub-menu .el-menu-item) {
@@ -84,6 +83,7 @@ const groupDefOpen = Array.from({ length: myMusicGroup.length }, (v, i) => `${i}
         font-size: 14px;
         font-weight: normal;
         color: #303133;
+        font-family: initial;
     }
 
     .iconfont {

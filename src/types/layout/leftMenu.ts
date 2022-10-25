@@ -3,7 +3,7 @@ const menuGroup = [
         name: '发现音乐',
         url: '/discoverMusic'
     }, {
-        name: '个性电台',
+        name: '私人FM',
         url: '/radioSet'
     }
 ]

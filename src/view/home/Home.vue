@@ -39,7 +39,7 @@ import leftMenu from "@/view/leftMenu/LeftMenu.vue"
 		display: flex;
 
 		.content {
-			width: 100%;
+			width: calc(100% - 200px);
 			height: 100%;
 		}
 	}
