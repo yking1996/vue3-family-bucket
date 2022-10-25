@@ -167,6 +167,13 @@ const onClickRow = (id: number, order: SuggestOrder) => {
             height: 28px;
             padding: 0 30px;
             font-size: 12px;
+            width: 100%;
+
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
         }
 
         >div:nth-child(n + 2):hover {

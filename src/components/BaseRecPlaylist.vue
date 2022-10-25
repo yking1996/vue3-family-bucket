@@ -52,10 +52,10 @@ watch(() => props.playListItem.picUrl, newVal => {
 
 <style lang="scss" scoped>
 .base-rec-song-list {
-    width: 200px;
+    width: 196px;
     height: 245px;
     margin-bottom: 20px;
-    margin-right: 16px;
+    margin-right: 18px;
     position: relative;
 
     >div:last-child {
@@ -87,8 +87,8 @@ watch(() => props.playListItem.picUrl, newVal => {
     }
 
     >img {
-        width: 200px;
-        height: 200px;
+        width: 196px;
+        height: 196px;
         border-radius: 6px;
     }
 
