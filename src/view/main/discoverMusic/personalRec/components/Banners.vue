@@ -6,7 +6,7 @@
             height="200px">
             <el-carousel-item v-for="item in banners"
                 :key="item.url">
-                <img :src="item.imageUrl">
+                <img class="item-img" :src="item.imageUrl">
                 <!-- 目前数据中只发现red与blue，防止存在额外的titleColor -->
                 <span :class="`title-${item.titleColor === 'red' ? 'red' : 'blue'}`"
                     class="type-title">{{item.typeTitle}}</span>
@@ -60,6 +60,9 @@ getBannersData()
 
     .title-red {
         background-color: #CC4A4A;
+    }
+    .item-img {
+        height: 100%;
     }
 
     .type-title {
