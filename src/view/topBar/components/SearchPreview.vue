@@ -105,7 +105,7 @@ const checkRow = (order: SuggestOrder, rowData: SuggestRow) => {
 const PlayerStore = usePlayerStore()
 const onClickRow = (id: number, order: SuggestOrder) => {
     if (order === 'songs') {
-        PlayerStore.goPlaySingle(id)
+        PlayerStore.goPlaySong(id)
     }
 }
 

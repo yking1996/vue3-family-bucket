@@ -164,7 +164,7 @@ export interface Tracks {
 	publishTime: number;
 }
 
-export interface TrackId {
+export interface TrackIds {
 	id: number;
 	v: number;
 	t: number;
@@ -217,7 +217,7 @@ export interface PlaylistDetail {
 	tracks: Tracks[];
 	videoIds?: any;
 	videos?: any;
-	trackIds: TrackId[];
+	trackIds: TrackIds[];
 	bannedTrackIds?: any;
 	shareCount: number;
 	commentCount: number;

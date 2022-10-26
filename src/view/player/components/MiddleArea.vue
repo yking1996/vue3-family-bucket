@@ -1,14 +1,17 @@
 <template>
-    <div class="middle-area">
+    <div class="middle-area"
+        :class="!currentSong.name ? 'forbidden' : ''">
         <div class="control-container">
             <i :class="playModeGroup[currentPlayMode]['icon']"
                 class="iconfont"
                 @click="changePlayMode"></i>
-            <i class="iconfont icon-previous"></i>
+            <i class="iconfont icon-previous"
+                @click="PlayerStore.goPlayPrevious"></i>
             <i :class="ifPlaying ? 'icon-pause' : 'icon-play'"
                 class="iconfont"
                 @click="changePlayingStatus"></i>
-            <i class="iconfont icon-next"></i>
+            <i class="iconfont icon-next"
+                @click="PlayerStore.goPlayNext"></i>
             <i class="iconfont icon-lyric"></i>
         </div>
         <div class="progress-container">
@@ -35,12 +38,13 @@ import { formatMusicTime } from "@/utils"
 import { Arrayable } from "element-plus/es/utils"
 import NP from "number-precision"
 const PlayerStore = usePlayerStore()
-const { 
-    currentTime, 
-    ifPlaying, 
-    currentSong, 
+const {
+    currentTime,
+    ifPlaying,
+    currentSong,
     getProgressPercent,
-    getAudioCurrentVolume } = storeToRefs(PlayerStore)
+    getAudioCurrentVolume
+} = storeToRefs(PlayerStore)
 const currentPlayMode = ref(0)
 const audioRef = ref<HTMLAudioElement>()
 const changePlayingStatus = () => {
@@ -82,6 +86,9 @@ watch(ifPlaying, async (newValue, oldValue) => {
     // console.log(currentSong.value.url);
     if (currentSong.value.url) {
         newValue ? audioRef.value!.play() : audioRef.value!.pause()
+    } else if (newValue && !currentSong.value.url && currentSong.value.id) {
+        //getSongUrl出现未知错误无法返回数据的情况，点击播放按钮重试
+        PlayerStore.retryGetSongUrl()
     }
 })
 watch(getAudioCurrentVolume, newVal => {
@@ -93,6 +100,16 @@ watch(getAudioCurrentVolume, newVal => {
 .middle-area {
     width: 440px;
     height: 100%;
+    position: relative;
+}
+
+.forbidden::after {
+    content: '';
+    width: 440px;
+    height: 60px;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .control-container {

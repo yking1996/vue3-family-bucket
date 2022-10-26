@@ -1,23 +1,25 @@
 <template>
     <div class="left-area">
-        <img :src="getAlubmCover">
-        <div class="text-info-container">
-            <div>
-                <p class="song-name"
-                    :class="{'add-scroll-anim': ifNameScroll}"
-                    ref="songName">
-                    <span>{{currentSong.name || '未知音乐'}}</span>
-                </p>
-                <i class="iconfont icon-vip"
-                    v-if="false"></i>
-                <i class="iconfont icon-my-favorite"></i>
-            </div>
-            <div>
-                <p class="song-name songwriter"
-                    :class="{'add-scroll-anim': ifWriterScroll}"
-                    ref="songwriter">
-                    <span>{{getSingerName}}</span>
-                </p>
+        <div v-show="currentSong.name">
+            <img :src="getAlubmCover">
+            <div class="text-info-container">
+                <div>
+                    <p class="song-name"
+                        :class="{ 'add-scroll-anim': ifNameScroll }"
+                        ref="songName">
+                        <span>{{ currentSong.name }}</span>
+                    </p>
+                    <i class="iconfont icon-vip"
+                        v-if="false"></i>
+                    <i class="iconfont icon-my-favorite"></i>
+                </div>
+                <div>
+                    <p class="song-name songwriter"
+                        :class="{ 'add-scroll-anim': ifWriterScroll }"
+                        ref="songwriter">
+                        <span>{{ getSingerName }}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -43,12 +45,15 @@ onMounted(() => {
 <style lang="scss" scoped>
 .left-area {
     width: 428px;
-    display: flex;
 
-    >img {
-        width: 48px;
-        height: 48px;
-        border-radius: 4px;
+    >div {
+        display: flex;
+        width: 100%;
+        >img {
+            width: 48px;
+            height: 48px;
+            border-radius: 4px;
+        }
     }
 }
 
@@ -69,7 +74,7 @@ onMounted(() => {
         max-width: 150px;
         overflow: hidden;
         margin-right: 8px;
-        line-height: 1;
+        line-height: 1.3;
 
         span {
             display: inline-block;

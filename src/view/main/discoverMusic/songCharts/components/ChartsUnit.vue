@@ -76,7 +76,7 @@ const getPlaylistDetailData = async () => {
 }
 const PlayerStore = usePlayerStore()
 const goPlay = (id: number) => {
-    PlayerStore.goPlaySingle(id)
+    PlayerStore.goPlaySong(id)
 }
 
 watch(() => props.playlistId, () => {

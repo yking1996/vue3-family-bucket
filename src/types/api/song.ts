@@ -1,10 +1,10 @@
 export interface GetSongUrlOldParams {
-	id: number, //音乐id
+	id: number | string, //音乐id 可多个如id=405998841,33894312
 	br?: number //码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 }
 
 export interface GetSongUrlParams {
-	id: number, //音乐id
+	id: number | string, //音乐id 可多个如id=405998841,33894312
 	level: string //standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, hires=>Hi-Res
 }
 

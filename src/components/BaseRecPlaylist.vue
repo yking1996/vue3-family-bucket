@@ -16,9 +16,9 @@
                     <img :src="playListItem.picUrl">
                     <i class="iconfont icon-play"
                         v-show="ifHover"
-                        @click.stop="emit('on-play')"></i>
+                        @click.stop="emit('on-play', playListItem.id)"></i>
                 </div>
-                <div @click="emit('on-detail')">{{ playListItem.name }}</div>
+                <div @click="emit('on-detail', playListItem.id)">{{ playListItem.name }}</div>
             </template>
         </el-skeleton>
     </div>
