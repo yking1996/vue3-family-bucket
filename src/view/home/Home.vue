@@ -3,7 +3,6 @@
 import topBar from "@/view/topBar/TopBar.vue"
 import musicPlayer from "@/view/player/MusicPlayer.vue"
 import leftMenu from "@/view/leftMenu/LeftMenu.vue"
-
 </script>
 <template>
 	<div class="home-page">

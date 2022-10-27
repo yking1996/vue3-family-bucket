@@ -25,8 +25,9 @@
         <audio :src="currentSong.url"
             :autoplay="false"
             ref="audioRef"
+            style="margin-top: 20px"
             @timeupdate="onTimeupdate"
-            style="margin-top: 20px"></audio>
+            @ended="onEnded"></audio>
     </div>
 </template>
 
@@ -79,6 +80,13 @@ const sliderChange = (val: Arrayable<number>) => {
 }
 const onTimeupdate = () => {
     PlayerStore.setCurrentTime(NP.times(audioRef.value!.currentTime, 1000))
+}
+const onEnded = () => {
+    PlayerStore.goPlayNext()
+    //触发end事件时，会触发一次el-slider的input事件，导致dragging值变为true，进度条无法更新
+    setTimeout(() => {
+        ifDragging.value = false
+    }, 1);
 }
 watch(ifPlaying, async (newValue, oldValue) => {
     //如果不等待dom更新,audio上的src: currentSong.url不会同步刷新
