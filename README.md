@@ -1,16 +1,91 @@
-# Cloud Music
+<h1 align="center">Cloud Music Demo</h1>
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> web版的云音乐播放器具有基础功能的demo，仿自网易云音乐WindowsPc客户端(version.2.9.5)
 
-## Recommended IDE Setup
+## 演示传送门 
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+[Cloud Music Demo](http://101.34.166.157/)
 
-## Type Support For `.vue` Imports in TS
+## 主要技术栈
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+- Vue3
+- Vite
+- Typescript
+- Pinia
+- Axios
+- Element-plus
+- Sass
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+## 网易云音乐API
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+
+## 页面
+
+- - [ ] 发现音乐
+    - [x] 个性推荐(部分内容)
+    - [x] 排行榜(部分内容)
+
+- - [x] 播放列表
+
+- - [x] 主播放器
+
+- - [ ] 朋友
+
+- - [ ] 直播
+
+- - [ ] 私人FM
+
+- - [ ] 我的音乐
+
+- - [ ] 创建的歌单
+
+- - [ ] 收藏的歌单
+
+- - [ ] 播客
+
+- - [ ] 视频
+
+- - [ ] ……
+
+## 功能
+
+- - [x] 主题颜色切换
+
+- - [x] 播放/切歌
+
+- - [x] 播放整个歌单
+
+- - [x] 音量控制
+
+- - [x] 播放列表控制
+
+- - [x] 进度条控制
+
+- - [x] 获取排行榜
+
+- - [x] 获取搜索建议
+
+- - [x] 获取热搜
+
+- - [ ] 登录
+
+- - [ ] ……
+
+
+
+## 安装、使用、打包
+
+```
+pnpm install
+
+pnpm run dev
+
+pnpm run build
+```
+
+
+
+## License
+
+[The MIT License (MIT)](https://github.com/yking1996/vue3-family-bucket/blob/music-player/LICENSE)

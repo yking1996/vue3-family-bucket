@@ -73,9 +73,9 @@ const emitSearchWord = (searchWord: string) => {
             justify-content: center;
             >div {
                 font-size: 12px;
-                padding-bottom: 8px;
+                padding-bottom: 6px;
                 width: 100%;
-                line-height: 1;
+                line-height: 1.2;
                 span {
                     white-space: nowrap;
                     display: inline-block;
