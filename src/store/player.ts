@@ -100,6 +100,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
         },
         goPlayNext() {
             if (this.onlyOneSong) {
+                this.initPlayer()
                 return
             }
             const playIndex = this.ifFinalSong ? 0 : this.getCurrentSongIndex + 1
@@ -107,12 +108,16 @@ export const usePlayerStore = defineStore('PlayerStore', {
         },
         goPlayPrevious() {
             if (this.onlyOneSong) {
+                this.initPlayer()
                 return
             }
             const playIndex = this.ifFirstSong ? this.playlistFinalIndex : this.getCurrentSongIndex - 1
             this.goPlayPlaylist(playIndex)
         },
         goPlayPlaylist(playIndex: number) {
+            if (this.getCurrentSongIndex === playIndex) {
+                return
+            }
             this.initPlayer()
             this.setSongInfoAndGetUrl(playIndex)
         },

@@ -86,6 +86,7 @@ const onEnded = () => {
     //触发end事件时，会触发一次el-slider的input事件，导致dragging值变为true，进度条无法更新
     setTimeout(() => {
         ifDragging.value = false
+        sliderProgress.value = 0
     }, 1);
 }
 watch(ifPlaying, async (newValue, oldValue) => {

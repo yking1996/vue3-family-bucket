@@ -219,6 +219,7 @@ const onPlaySelectedSong = (songIndex: number) => {
         padding: 0 20px;
         display: flex;
         align-items: center;
+        user-select:none;
 
         .text-ellipsis {
             overflow: hidden;
