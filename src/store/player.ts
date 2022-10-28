@@ -81,6 +81,23 @@ export const usePlayerStore = defineStore('PlayerStore', {
             this.ifPlaying = false
             this.currentSong.url = ''
         },
+        initCurrentSong() {
+            this.currentSong = {
+                id: 0,
+                url: '',
+                al: {
+                    id: 0,
+                    name: '',
+                    picUrl: '',
+                    tns: [],
+                    pic_str: '',
+                    pic: 0
+                },
+                ar: [],
+                name: '',
+                dt: 0
+            }
+        },
         goPlayNext() {
             if (this.onlyOneSong) {
                 return

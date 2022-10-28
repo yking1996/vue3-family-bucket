@@ -31,16 +31,17 @@
                             <i class="iconfont icon-add-file">
                                 <span>收藏全部</span>
                             </i>
-                            <span>清空列表</span>
+                            <span @click="onClearPlaylist">清空列表</span>
                         </div>
                     </div>
                 </div>
                 <div class="drawer-content">
                     <el-scrollbar max-height="689px">
-                        <div v-for="song in currentPlayList"
+                        <div v-for="(song, songIndex) in currentPlayList"
                             :key="song.id"
                             class="playlist-item"
-                            :class="{ 'isPlaying': currentSong.id === song.id }">
+                            :class="{ 'isPlaying': currentSong.id === song.id }"
+                            @dblclick="onPlaySelectedSong(songIndex)">
                             <div class="item-song-name">
                                 <i v-if="currentSong.id === song.id"
                                     class="iconfont icon-right-arrow"></i>
@@ -76,6 +77,15 @@ const controlMute = () => {
     currentVolume.value = currentVolume.value === 0 ? 100 : 0
 }
 const drawerVisible = ref(false)
+
+const onClearPlaylist = () => {
+    PlayerStore.clearPlaylist()
+    PlayerStore.initCurrentSong()
+    PlayerStore.initPlayer()
+}
+const onPlaySelectedSong = (songIndex: number) => {
+    PlayerStore.goPlayPlaylist(songIndex)
+}
 </script>
 
 <style lang="scss" scoped>
