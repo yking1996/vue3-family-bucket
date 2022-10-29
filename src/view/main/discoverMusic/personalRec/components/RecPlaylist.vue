@@ -2,13 +2,25 @@
     <div class="rec-song-list">
         <BaseTitle title="推荐歌单"
             icon="icon-arrow-right" />
-        <div class="song-List-container">
-            <BaseRecPlaylist v-for="item in recPlaylist"
-                :key="item.id"
-                :playListItem="item"
-                @on-detail="goDetail"
-                @on-play="goPlay" />
-        </div>
+        <el-skeleton :loading="skeletonLoading"
+            animated>
+            <template #template>
+                <div class="song-List-container">
+                    <el-skeleton-item variant="image"
+                        v-for="item in 10"
+                        class="ske-image" />
+                </div>
+            </template>
+            <template #default>
+                <div class="song-List-container">
+                    <BaseRecPlaylist v-for="item in recPlaylist"
+                        :key="item.id"
+                        :playListItem="item"
+                        @on-detail="goDetail"
+                        @on-play="goPlay" />
+                </div>
+            </template>
+        </el-skeleton>
     </div>
 </template>
 
@@ -25,12 +37,13 @@ const getPersonalizedData = async () => {
     }
     let res: PersonalizedRes = await API.discoverMusic.getPersonalized(params)
     recPlaylist.value = res.result
+    skeletonLoading.value = false
 }
 getPersonalizedData()
 
 const goDetail = (id: number) => {
 }
-// const tracksIdList = ref<TrackIds[]>([])
+const skeletonLoading = ref(true)
 const getPlaylistDetailData = async (id: number) => {
     try {
         let params = { id }
@@ -48,6 +61,7 @@ const getPlaylistDetailData = async (id: number) => {
 const goPlay = (id: number) => {
     getPlaylistDetailData(id)
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -60,6 +74,17 @@ const goPlay = (id: number) => {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+
+    .ske-image {
+        width: 196px;
+        height: 196px;
+        margin-bottom: 20px;
+        margin-right: 18px;
+    }
+
+    .ske-image:nth-child(5n) {
+        margin-right: 0;
+    }
 }
 
 .base-rec-song-list:nth-child(5n) {
