@@ -1,1 +1,0 @@
-import{_ as o}from"./building.36c7ede5.js";import{_ as s,c as t,o as _,p as c,e as a,f as d}from"./index.f0238773.js";const i={},n=e=>(c("data-v-44098879"),e=e(),a(),e),r={class:"radio-set isBuilding"},p=n(()=>d("img",{src:o,alt:""},null,-1)),l=[p];function f(e,m){return _(),t("div",r,l)}const v=s(i,[["render",f],["__scopeId","data-v-44098879"]]);export{v as default};
