@@ -17,10 +17,13 @@
             :width="354"
             :offset="3"
             popper-class="search-popper">
-            <el-scrollbar height="450px"  v-show="!searchValue">
-                <HotSearchCharts @on-row-click="getSearchWord"/>
+            <el-scrollbar height="450px"
+                v-show="!searchValue">
+                <HotSearchCharts :pop-change="popVisible"
+                    @on-row-click="getSearchWord" />
             </el-scrollbar>
-            <SearchPreview v-show="searchValue" :search-word="searchValue" />
+            <SearchPreview v-show="searchValue"
+                :search-word="searchValue" />
         </el-popover>
     </div>
 </template>

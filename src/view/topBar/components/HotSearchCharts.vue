@@ -19,6 +19,10 @@
 <script setup lang="ts">
 import API from "@/api"
 import { SearchHotDetail, GetSearchHotDetailRes } from "@/types/layout/search"
+const props = defineProps<{
+    popChange: boolean
+}>()
+
 const hotSearchList = ref<SearchHotDetail[]>([])
 const getSearchHotDetailData = async () => {
     let res: GetSearchHotDetailRes = await API.search.getSearchHotDetail()
@@ -33,6 +37,13 @@ const emit = defineEmits([
 const emitSearchWord = (searchWord: string) => {
     emit('on-row-click', searchWord)
 }
+
+//热搜接口存在可能获取不到数据的情况
+watch(() => props.popChange, newVal => {
+    if (!hotSearchList.value.length ) {
+        getSearchHotDetailData()
+    }
+})
 </script>
 
 <style lang="scss" scoped>
