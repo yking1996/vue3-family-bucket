@@ -7,19 +7,20 @@
         <MainMenu />
         <div class="other-menu">
             <ChangeTheme />
-            <i :class="icon.icon"
+            <i
+                :class="icon.icon"
                 class="iconfont"
                 v-for="icon in otherMenuList"
-                :key="icon.icon"></i>
+                :key="icon.icon"
+            ></i>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import MainMenu from "./MainMenu.vue"
-import ChangeTheme from "./components/ChangeTheme.vue"
-import { otherMenuList } from "@/types/layout/topBar"
-
+import MainMenu from './MainMenu.vue'
+import ChangeTheme from './components/ChangeTheme.vue'
+import { otherMenuList } from '@/types/layout/topBar'
 </script>
 
 <style lang="scss" scoped>
@@ -28,13 +29,14 @@ import { otherMenuList } from "@/types/layout/topBar"
     align-items: center;
     height: 60px;
     padding: 0 20px;
-    background-image: linear-gradient(to right,
-            $theme-primary-light-3,
-            $theme-primary-light-1,
-            $theme-primary-light-3,
-            $theme-primary-light-5,
-            $theme-primary-light-3,
-        );
+    background-image: linear-gradient(
+        to right,
+        $theme-primary-light-3,
+        $theme-primary-light-1,
+        $theme-primary-light-3,
+        $theme-primary-light-5,
+        $theme-primary-light-3
+    );
 }
 
 .other-menu {
@@ -68,7 +70,7 @@ import { otherMenuList } from "@/types/layout/topBar"
 .icon-xingqiu {
     font-size: 28px;
     color: $theme-primary;
-    background-color: rgba(#fff, .8);
+    background-color: rgba(#fff, 0.8);
     height: 28px;
     line-height: 1.1;
     cursor: pointer;

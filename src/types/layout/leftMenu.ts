@@ -2,7 +2,8 @@ const menuGroup = [
     {
         name: '发现音乐',
         url: '/discoverMusic'
-    }, {
+    },
+    {
         name: '私人FM',
         url: '/radioSet'
     }
@@ -15,13 +16,15 @@ const myMusicGroup = [
                 name: '最近播放',
                 url: '/recentPlay',
                 icon: 'icon-recent-play'
-            }, {
+            },
+            {
                 name: '我的收藏',
                 url: '/mycollections',
                 icon: 'icon-my-collections'
             }
         ]
-    }, {
+    },
+    {
         name: '收藏的歌单',
         children: [
             {
@@ -31,10 +34,6 @@ const myMusicGroup = [
             }
         ]
     }
-
 ]
 
-export {
-    menuGroup,
-    myMusicGroup
-}
+export { menuGroup, myMusicGroup }

@@ -1,17 +1,18 @@
 <template>
-    <div class="theme-square"
-        :style="{'background-color': theme.color}"
+    <div
+        class="theme-square"
+        :style="{ 'background-color': theme.color }"
         :themeLabel="theme.label"
-        @click="onSwitchTheme(theme.name)">
+        @click="onSwitchTheme(theme.name)"
+    >
         <i class="iconfont icon-xingqiu"></i>
-        <i v-if="PublicStore.currentTheme === theme.name"
-            class="iconfont icon-selected"></i>
+        <i v-if="PublicStore.currentTheme === theme.name" class="iconfont icon-selected"></i>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ThemeItem } from "@/types/public"
-import { usePublicStore } from "@/store"
+import { ThemeItem } from '@/types/public'
+import { usePublicStore } from '@/store'
 interface SquareProps {
     theme: ThemeItem
 }
@@ -38,7 +39,7 @@ const onSwitchTheme = (themeName: string): void => {
 
     .icon-xingqiu {
         font-size: 60px;
-        color: rgba(#fff, .4);
+        color: rgba(#fff, 0.4);
     }
     .icon-selected {
         color: $theme-primary;
@@ -75,7 +76,7 @@ const onSwitchTheme = (themeName: string): void => {
     bottom: 0;
     height: 20px;
     width: 92px;
-    background-color: rgba(#000, .2);
+    background-color: rgba(#000, 0.2);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }

@@ -1,22 +1,22 @@
 <template>
     <div class="base-title" @click="emitClick">
-        <span>{{title}}</span>
-        <i class="iconfont"
-            :class="icon"></i>
+        <span>{{ title }}</span>
+        <i class="iconfont" :class="icon"></i>
     </div>
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
-    title: string,
-    icon?: string
-}>(), {
-    title: '',
-    icon: ''
-})
-const emit = defineEmits([
-    'on-click'
-])
+withDefaults(
+    defineProps<{
+        title: string
+        icon?: string
+    }>(),
+    {
+        title: '',
+        icon: ''
+    }
+)
+const emit = defineEmits(['on-click'])
 const emitClick = () => {
     emit('on-click')
 }
@@ -31,7 +31,6 @@ const emitClick = () => {
     padding: 10px 0;
     span {
         font-weight: bold;
-
     }
 
     i {

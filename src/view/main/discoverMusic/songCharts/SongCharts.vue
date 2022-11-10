@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import OfficialCharts from "./components/OfficialCharts.vue"
+import OfficialCharts from './components/OfficialCharts.vue'
 </script>
 
 <style lang="scss" scoped>

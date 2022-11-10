@@ -1,9 +1,12 @@
 <template>
     <div class="hot-search-container">
         <div>热搜榜</div>
-        <div class="hot-search-row"
+        <div
+            class="hot-search-row"
             v-for="(song, index) in hotSearchList"
-            @click="emitSearchWord(song.searchWord)">
+            :key="song.searchWord"
+            @click="emitSearchWord(song.searchWord)"
+        >
             <div>{{ index + 1 }}</div>
             <div class="search-info">
                 <div>
@@ -17,33 +20,34 @@
 </template>
 
 <script setup lang="ts">
-import API from "@/api"
-import { SearchHotDetail, GetSearchHotDetailRes } from "@/types/layout/search"
+import API from '@/api'
+import { SearchHotDetail, GetSearchHotDetailRes } from '@/types/layout/search'
 const props = defineProps<{
     popChange: boolean
 }>()
 
 const hotSearchList = ref<SearchHotDetail[]>([])
 const getSearchHotDetailData = async () => {
-    let res: GetSearchHotDetailRes = await API.search.getSearchHotDetail()
+    const res: GetSearchHotDetailRes = await API.search.getSearchHotDetail()
     if (res.code === 200) {
         hotSearchList.value = res.data
     }
 }
 getSearchHotDetailData()
-const emit = defineEmits([
-    'on-row-click'
-])
+const emit = defineEmits(['on-row-click'])
 const emitSearchWord = (searchWord: string) => {
     emit('on-row-click', searchWord)
 }
 
 //热搜接口存在可能获取不到数据的情况
-watch(() => props.popChange, newVal => {
-    if (!hotSearchList.value.length ) {
-        getSearchHotDetailData()
+watch(
+    () => props.popChange,
+    newVal => {
+        if (!hotSearchList.value.length) {
+            getSearchHotDetailData()
+        }
     }
-})
+)
 </script>
 
 <style lang="scss" scoped>
@@ -51,12 +55,12 @@ watch(() => props.popChange, newVal => {
     width: calc(100% - 8px);
     height: 450px;
 
-    >div {
+    > div {
         padding: 0 20px;
         width: 100%;
     }
 
-    >div:first-child {
+    > div:first-child {
         font-size: 14px;
         height: 45px;
         display: flex;
@@ -70,10 +74,10 @@ watch(() => props.popChange, newVal => {
         align-items: center;
         width: 100%;
 
-        >div:first-child {
+        > div:first-child {
             width: 34px;
             font-size: 16px;
-            color: #C4C4DB;
+            color: #c4c4db;
         }
 
         .search-info {
@@ -82,11 +86,13 @@ watch(() => props.popChange, newVal => {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            >div {
+
+            > div {
                 font-size: 12px;
                 padding-bottom: 6px;
                 width: 100%;
                 line-height: 1.2;
+
                 span {
                     white-space: nowrap;
                     display: inline-block;
@@ -101,11 +107,11 @@ watch(() => props.popChange, newVal => {
 
                 span:last-child {
                     padding-left: 10px;
-                    color: #C4C4C4;
+                    color: #c4c4c4;
                 }
             }
 
-            >span {
+            > span {
                 color: #979797;
                 white-space: nowrap;
                 display: inline-block;
@@ -117,12 +123,12 @@ watch(() => props.popChange, newVal => {
     }
 
     .hot-search-row:nth-child(-n + 4) {
-        >div:first-child {
-            color: #FF3A3A;
+        > div:first-child {
+            color: #ff3a3a;
         }
 
         .search-info {
-            >div {
+            > div {
                 span:first-child {
                     font-weight: bold;
                 }
@@ -131,7 +137,7 @@ watch(() => props.popChange, newVal => {
     }
 
     .hot-search-row:hover {
-        background-color: #F2F2F2;
+        background-color: #f2f2f2;
         cursor: pointer;
     }
 }

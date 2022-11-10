@@ -1,23 +1,26 @@
 <template>
     <div class="rec-song-list">
-        <BaseTitle title="推荐歌单"
-            icon="icon-arrow-right" />
-        <el-skeleton :loading="skeletonLoading"
-            animated>
+        <BaseTitle title="推荐歌单" icon="icon-arrow-right" />
+        <el-skeleton :loading="skeletonLoading" animated>
             <template #template>
                 <div class="song-List-container">
-                    <el-skeleton-item variant="image"
-                        v-for="item in 10"
-                        class="ske-image" />
+                    <el-skeleton-item
+                        v-for="index of 10"
+                        variant="image"
+                        :key="index"
+                        class="ske-image"
+                    />
                 </div>
             </template>
             <template #default>
                 <div class="song-List-container">
-                    <BaseRecPlaylist v-for="item in recPlaylist"
+                    <BaseRecPlaylist
+                        v-for="item in recPlaylist"
                         :key="item.id"
                         :playListItem="item"
                         @on-detail="goDetail"
-                        @on-play="goPlay" />
+                        @on-play="goPlay"
+                    />
                 </div>
             </template>
         </el-skeleton>
@@ -25,43 +28,43 @@
 </template>
 
 <script setup lang="ts">
-import API from "@/api"
-import { PersonalizedRes, PersonalizedResListItem } from "@/types/layout/discoverMusic"
-import { PlaylistDetail, Tracks, PlaylistDetailRes, TrackIds } from "@/types/layout/playlist"
-import { usePlayerStore } from "@/store/player"
+import API from '@/api'
+import { PersonalizedRes, PersonalizedResListItem } from '@/types/layout/discoverMusic'
+import { PlaylistDetail, Tracks, PlaylistDetailRes, TrackIds } from '@/types/layout/playlist'
+import { usePlayerStore } from '@/store/player'
 const recPlaylist = ref<PersonalizedResListItem[]>([])
 const PlayerStore = usePlayerStore()
 const getPersonalizedData = async () => {
-    let params = {
+    const params = {
         limit: 10
     }
-    let res: PersonalizedRes = await API.discoverMusic.getPersonalized(params)
+    const res: PersonalizedRes = await API.discoverMusic.getPersonalized(params)
     recPlaylist.value = res.result
     skeletonLoading.value = false
 }
 getPersonalizedData()
 
 const goDetail = (id: number) => {
+    //goDetail
 }
 const skeletonLoading = ref(true)
 const getPlaylistDetailData = async (id: number) => {
     try {
-        let params = { id }
-        let res: PlaylistDetailRes = await API.playlist.getPlaylistDetail(params)
+        const params = { id }
+        const res: PlaylistDetailRes = await API.playlist.getPlaylistDetail(params)
         if (res.code === 200) {
-            let tracksIdList = res.playlist.trackIds
-            let ids = tracksIdList.map((song) => song.id).join(',')
+            const tracksIdList = res.playlist.trackIds
+            const ids = tracksIdList.map(song => song.id).join(',')
             PlayerStore.goPlaySong(ids, 1)
         }
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }
 
 const goPlay = (id: number) => {
     getPlaylistDetailData(id)
 }
-
 </script>
 
 <style lang="scss" scoped>

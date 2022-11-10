@@ -1,22 +1,25 @@
 <template>
     <div class="left-area">
         <div v-show="currentSong.name">
-            <img :src="getAlubmCover">
+            <img :src="getAlubmCover" />
             <div class="text-info-container">
                 <div>
-                    <p class="song-name"
+                    <p
+                        class="song-name"
                         :class="{ 'add-scroll-anim': ifNameScroll }"
-                        ref="songName">
+                        ref="songName"
+                    >
                         <span>{{ currentSong.name }}</span>
                     </p>
-                    <i class="iconfont icon-vip"
-                        v-if="false"></i>
+                    <i class="iconfont icon-vip" v-if="false"></i>
                     <i class="iconfont icon-my-favorite"></i>
                 </div>
                 <div>
-                    <p class="song-name songwriter"
+                    <p
+                        class="song-name songwriter"
                         :class="{ 'add-scroll-anim': ifWriterScroll }"
-                        ref="songwriter">
+                        ref="songwriter"
+                    >
                         <span>{{ getSingerName }}</span>
                     </p>
                 </div>
@@ -26,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePlayerStore } from "@/store/player"
+import { usePlayerStore } from '@/store/player'
 import { storeToRefs } from 'pinia'
 const PlayerStore = usePlayerStore()
 const { currentSong, getSingerName, getAlubmCover } = storeToRefs(PlayerStore)
@@ -37,8 +40,8 @@ const ifWriterScroll = ref(false)
 
 onMounted(() => {
     // console.log(songName.value!.clientWidth);
-    ifNameScroll.value = songName.value!.clientWidth === 150 ? true : false;
-    ifWriterScroll.value = songwriter.value!.clientWidth === 200 ? true : false;
+    ifNameScroll.value = songName.value!.clientWidth === 150 ? true : false
+    ifWriterScroll.value = songwriter.value!.clientWidth === 200 ? true : false
 })
 </script>
 
@@ -46,10 +49,10 @@ onMounted(() => {
 .left-area {
     width: 428px;
 
-    >div {
+    > div {
         display: flex;
         width: 100%;
-        >img {
+        > img {
             width: 48px;
             height: 48px;
             border-radius: 4px;
@@ -64,7 +67,7 @@ onMounted(() => {
     flex-direction: column;
     justify-content: center;
 
-    >div {
+    > div {
         width: 100%;
         display: flex;
         align-items: center;
@@ -93,7 +96,7 @@ onMounted(() => {
     .icon-my-favorite {
         padding-top: 4px;
         font-size: 20px;
-        color: #6F6F6F;
+        color: #6f6f6f;
         line-height: 1;
         cursor: pointer;
     }
@@ -103,7 +106,7 @@ onMounted(() => {
 
         span {
             font-size: 13px;
-            color: #A0A0A0;
+            color: #a0a0a0;
         }
     }
 }

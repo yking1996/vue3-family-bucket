@@ -1,27 +1,22 @@
 <template>
     <div class="discover-music">
         <div class="top-menu">
-            <el-menu router
-                mode="horizontal"
-                :default-active="route.path">
-                <el-menu-item :index="item.url"
-                    v-for="item in topMenuGroup"
-                    :key="item.url">
-                    <span>{{item.name}}</span>
+            <el-menu router mode="horizontal" :default-active="route.path">
+                <el-menu-item :index="item.url" v-for="item in topMenuGroup" :key="item.url">
+                    <span>{{ item.name }}</span>
                 </el-menu-item>
             </el-menu>
         </div>
         <div class="main-content">
-            <router-view></router-view>
+            <router-view />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { topMenuGroup } from "@/types/layout/discoverMusic"
-import { useRoute } from "vue-router"
+import { topMenuGroup } from '@/types/layout/discoverMusic'
+import { useRoute } from 'vue-router'
 const route = useRoute()
-
 </script>
 
 <style lang="scss" scoped>
@@ -60,7 +55,8 @@ const route = useRoute()
         background-color: transparent;
     }
 
-    :deep(.el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover) {
+    :deep(.el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal
+            .el-menu-item:not(.is-disabled):hover) {
         background-color: transparent;
     }
 }

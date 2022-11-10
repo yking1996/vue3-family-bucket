@@ -7,16 +7,16 @@
             <i class="iconfont icon-arrow-right"></i>
         </div>
         <div class="suggest-container">
-            <div class="order-unit"
-                v-for="item in suggestDetail.order"
-                :key="item">
+            <div class="order-unit" v-for="item in suggestDetail.order" :key="item">
                 <div>
-                    <i class="iconfont"
-                        :class="orderMap[item].icon"></i>
+                    <i class="iconfont" :class="orderMap[item].icon"></i>
                     <span>{{ orderMap[item].name || '' }}</span>
                 </div>
-                <div v-for="row in suggestDetail[item]"
-                    @click="onClickRow(row.id, item)">
+                <div
+                    v-for="row in suggestDetail[item]"
+                    :key="row.id"
+                    @click="onClickRow(row.id, item)"
+                >
                     <span v-html="checkRow(item, row)"></span>
                 </div>
             </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import API from "@/api"
+import API from '@/api'
 import {
     GetSearchSuggestRes,
     GetSearchSuggestDetail,
@@ -36,8 +36,8 @@ import {
     PlaylistEntity,
     SuggestOrder,
     SuggestRow
-} from "@/types/layout/search"
-import { usePlayerStore } from "@/store/player"
+} from '@/types/layout/search'
+import { usePlayerStore } from '@/store/player'
 const props = defineProps<{
     searchWord: string
 }>()
@@ -57,20 +57,23 @@ const getSearchSuggestData = async () => {
         suggestDetail.value = res.result
     }
 }
-let timeoutId = 0;
+let timeoutId = 0
 const debounceSearch = () => {
     clearTimeout(timeoutId)
     timeoutId = window.setTimeout(() => {
         getSearchSuggestData()
-    }, 500);
+    }, 500)
 }
 
-watch(() => props.searchWord, newVal => {
-    debounceSearch()
-})
+watch(
+    () => props.searchWord,
+    newVal => {
+        debounceSearch()
+    }
+)
 const checkHighligh = (str: string) => {
     const key = props.searchWord
-    const reg = new RegExp(key, "g")
+    const reg = new RegExp(key, 'g')
     if (str.match(reg)) {
         return str.replace(key, `<font class="highlightWords">${key}</font>`)
     }
@@ -79,22 +82,25 @@ const checkHighligh = (str: string) => {
 const checkRow = (order: SuggestOrder, rowData: SuggestRow) => {
     let str = ''
     let data = {} as SuggestRow
-    let showName = rowData.name || ''
+    let alias = ''
+    const showName = rowData.name || ''
     switch (order) {
-        case "songs":
+        case 'songs':
             data = rowData as SongEntity
-            let alias = data.alias.length ? `(${data.alias[0]})` : ''
-            str = `${showName} ${alias ? alias : ''}- ${data.artists.map((singer) => singer.name).join(' ')}`
+            alias = data.alias.length ? `(${data.alias[0]})` : ''
+            str = `${showName} ${alias ? alias : ''}- ${data.artists
+                .map(singer => singer.name)
+                .join(' ')}`
             return checkHighligh(str)
-        case "artists":
+        case 'artists':
             data = rowData as ArtistEntity
             str = showName
             return checkHighligh(str)
-        case "albums":
+        case 'albums':
             data = rowData as AlbumEntity
             str = `${showName} - ${data.artist.name || ''}`
             return checkHighligh(str)
-        case "playlists":
+        case 'playlists':
             data = rowData as PlaylistEntity
             str = showName
             return checkHighligh(str)
@@ -108,7 +114,6 @@ const onClickRow = (id: number, order: SuggestOrder) => {
         PlayerStore.goPlaySong(id)
     }
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -146,22 +151,22 @@ const onClickRow = (id: number, order: SuggestOrder) => {
             line-height: 1;
         }
 
-        >div {
+        > div {
             span {
                 line-height: 1;
             }
         }
 
-        >div:first-child {
+        > div:first-child {
             display: flex;
             align-items: center;
-            background-color: #F5F5F7;
+            background-color: #f5f5f7;
             padding: 0 10px;
             height: 26px;
             font-size: 13px;
         }
 
-        >div:nth-child(n + 2) {
+        > div:nth-child(n + 2) {
             display: flex;
             align-items: center;
             height: 28px;
@@ -176,8 +181,8 @@ const onClickRow = (id: number, order: SuggestOrder) => {
             }
         }
 
-        >div:nth-child(n + 2):hover {
-            background-color: #F2F2F2;
+        > div:nth-child(n + 2):hover {
+            background-color: #f2f2f2;
             cursor: pointer;
         }
     }

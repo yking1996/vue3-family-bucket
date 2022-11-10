@@ -1,22 +1,25 @@
 <template>
     <div class="base-rec-song-list">
-        <el-skeleton :loading="skeletonLoading"
-            animated>
+        <el-skeleton :loading="skeletonLoading" animated>
             <template #template>
                 <div class="cover-container">
                     <el-skeleton-item variant="image" />
                 </div>
             </template>
             <template #default>
-                <div class="cover-container"
+                <div
+                    class="cover-container"
                     @mouseenter="mouseEnter"
                     @mouseleave="mouseLeave"
-                    @click="emit('on-detail')">
+                    @click="emit('on-detail')"
+                >
                     <BasePlayCount :playCount="playListItem.playCount" />
-                    <img :src="playListItem.picUrl">
-                    <i class="iconfont icon-play"
+                    <img :src="playListItem.picUrl" />
+                    <i
+                        class="iconfont icon-play"
                         v-show="ifHover"
-                        @click.stop="emit('on-play', playListItem.id)"></i>
+                        @click.stop="emit('on-play', playListItem.id)"
+                    ></i>
                 </div>
                 <div @click="emit('on-detail', playListItem.id)">{{ playListItem.name }}</div>
             </template>
@@ -25,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { PersonalizedResListItem } from "@/types/layout/discoverMusic"
+import { PersonalizedResListItem } from '@/types/layout/discoverMusic'
 
 const props = defineProps<{
     playListItem: PersonalizedResListItem
@@ -38,16 +41,17 @@ const mouseLeave = () => {
     ifHover.value = false
 }
 
-const emit = defineEmits([
-    'on-play',
-    'on-detail'
-])
+const emit = defineEmits(['on-play', 'on-detail'])
 const skeletonLoading = ref(true)
-watch(() => props.playListItem.picUrl, newVal => {
-    skeletonLoading.value = false
-}, {
-    immediate: true
-})
+watch(
+    () => props.playListItem.picUrl,
+    newVal => {
+        skeletonLoading.value = false
+    },
+    {
+        immediate: true
+    }
+)
 </script>
 
 <style lang="scss" scoped>
@@ -58,7 +62,7 @@ watch(() => props.playListItem.picUrl, newVal => {
     margin-right: 18px;
     position: relative;
 
-    >div:last-child {
+    > div:last-child {
         margin-top: 8px;
         font-size: 14px;
         width: 100%;
@@ -71,7 +75,7 @@ watch(() => props.playListItem.picUrl, newVal => {
         color: #373737;
     }
 
-    >div:last-child:hover {
+    > div:last-child:hover {
         color: #000;
     }
 }
@@ -86,7 +90,7 @@ watch(() => props.playListItem.picUrl, newVal => {
         border-radius: 6px;
     }
 
-    >img {
+    > img {
         width: 196px;
         height: 196px;
         border-radius: 6px;
@@ -99,7 +103,7 @@ watch(() => props.playListItem.picUrl, newVal => {
         font-size: 30px;
         line-height: 1;
         color: #fff;
-        opacity: .9;
+        opacity: 0.9;
     }
 
     .icon-play::after {

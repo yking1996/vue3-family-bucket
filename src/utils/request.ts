@@ -1,37 +1,30 @@
-import service from "./service"
+import service from './service'
 
 export default {
     get(url: string, config = {}) {
         return new Promise((resolve, reject) => {
             service
-                .get(
-                    url,
-                    config || {}
-                )
+                .get(url, config || {})
                 .then(({ data }: any) => {
-                    resolve(data);
+                    resolve(data)
                 })
                 .catch(err => {
-                    reject(err);
-                });
-        });
+                    reject(err)
+                })
+        })
     },
     post(url: string, options: any = {}) {
-        let { data } = options;
-        let { config } = options;
+        const { data } = options
+        const { config } = options
         return new Promise((resolve, reject) => {
             service
-                .post(
-                    url,
-                    data,
-                    config || {}
-                )
+                .post(url, data, config || {})
                 .then(({ data }: any) => {
-                    resolve(data);
+                    resolve(data)
                 })
                 .catch(err => {
-                    reject(err);
-                });
-        });
-    },
+                    reject(err)
+                })
+        })
+    }
 }

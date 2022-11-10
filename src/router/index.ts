@@ -1,21 +1,17 @@
-import {
-    createRouter,
-    createWebHistory,
-    RouteRecordRaw
-} from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        redirect: '/discoverMusic',
-    },
+        redirect: '/discoverMusic'
+    }
 ]
-const files = import.meta.glob('./routes/*.ts', { eager: true });//eager为false时是懒加载
+const files = import.meta.glob('./routes/*.ts', { eager: true }) //eager为false时是懒加载
 interface FilesKey {
     default: RouteRecordRaw[]
 }
 
 for (const key in files) {
-    let res = files[key]
+    const res = files[key]
     // let res = await files[key]()
     //files[key]()作为promise<unknow>的类型修正
     const result: FilesKey = <FilesKey>res
@@ -26,10 +22,8 @@ for (const key in files) {
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes,
+    routes
 })
 router
 
 export default router
-
-

@@ -5,8 +5,4 @@ interface GetPersonalizedParams {
     limit: number //default: 30
 }
 
-
-export type {
-    GetBannersParams,
-    GetPersonalizedParams,
-}
+export type { GetBannersParams, GetPersonalizedParams }

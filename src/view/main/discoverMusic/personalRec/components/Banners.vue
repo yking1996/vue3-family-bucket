@@ -1,32 +1,31 @@
 <template>
     <div class="banner-container">
-        <el-carousel :interval="5000"
-            ref="carouselRef"
-            type="card"
-            height="200px">
-            <el-carousel-item v-for="item in banners"
-                :key="item.url">
-                <img class="item-img" :src="item.imageUrl">
+        <el-carousel :interval="5000" ref="carouselRef" type="card" height="200px">
+            <el-carousel-item v-for="item in banners" :key="item.url">
+                <img class="item-img" :src="item.imageUrl" />
                 <!-- 目前数据中只发现red与blue，防止存在额外的titleColor -->
-                <span :class="`title-${item.titleColor === 'red' ? 'red' : 'blue'}`"
-                    class="type-title">{{item.typeTitle}}</span>
+                <span
+                    :class="`title-${item.titleColor === 'red' ? 'red' : 'blue'}`"
+                    class="type-title"
+                    >{{ item.typeTitle }}</span
+                >
             </el-carousel-item>
         </el-carousel>
     </div>
 </template>
 
 <script setup lang="ts">
-import API from "@/api"
-import { BannerRes, Banner } from "@/types/layout/discoverMusic"
-import { CarouselInstance } from "element-plus"
+import API from '@/api'
+import { BannerRes, Banner } from '@/types/layout/discoverMusic'
+import { CarouselInstance } from 'element-plus'
 const banners = ref<Banner[]>([])
 const carouselRef = ref<CarouselInstance>()
 
 const getBannersData = async () => {
-    let params = {
+    const params = {
         type: 0
     }
-    let res: BannerRes = await API.discoverMusic.getBanners(params)
+    const res: BannerRes = await API.discoverMusic.getBanners(params)
     banners.value = res.banners
     //防止获取banners列表后第一页无数据
     carouselRef.value!.next()
@@ -55,11 +54,11 @@ getBannersData()
     }
 
     .title-blue {
-        background-color: #4A79CC;
+        background-color: #4a79cc;
     }
 
     .title-red {
-        background-color: #CC4A4A;
+        background-color: #cc4a4a;
     }
     .item-img {
         height: 100%;

@@ -2,36 +2,36 @@
     <div class="main-menu">
         <i class="iconfont icon-previous-page"></i>
         <i class="iconfont icon-next-page"></i>
-        <el-input v-model="searchValue"
+        <el-input
+            v-model="searchValue"
             :prefix-icon="Search"
             placeholder="搜索"
             ref="buttonRef"
             @focus="popVisible = true"
-            @blur="popVisible = false">
-        </el-input>
-        <el-popover :virtual-ref="buttonRef"
+            @blur="popVisible = false"
+        />
+        <el-popover
+            :virtual-ref="buttonRef"
             :visible="popVisible"
             trigger="focus"
             :show-arrow="false"
             virtual-triggering
             :width="354"
             :offset="3"
-            popper-class="search-popper">
-            <el-scrollbar height="450px"
-                v-show="!searchValue">
-                <HotSearchCharts :pop-change="popVisible"
-                    @on-row-click="getSearchWord" />
+            popper-class="search-popper"
+        >
+            <el-scrollbar height="450px" v-show="!searchValue">
+                <HotSearchCharts :pop-change="popVisible" @on-row-click="getSearchWord" />
             </el-scrollbar>
-            <SearchPreview v-show="searchValue"
-                :search-word="searchValue" />
+            <SearchPreview v-show="searchValue" :search-word="searchValue" />
         </el-popover>
     </div>
 </template>
 
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
-import HotSearchCharts from "./components/HotSearchCharts.vue"
-import SearchPreview from "./components/SearchPreview.vue"
+import HotSearchCharts from './components/HotSearchCharts.vue'
+import SearchPreview from './components/SearchPreview.vue'
 const searchValue = ref('')
 const buttonRef = ref()
 const popVisible = ref(false)
@@ -52,7 +52,7 @@ const getSearchWord = (searchWord: string) => {
         font-size: 30px;
         margin-right: 8px;
         position: relative;
-        opacity: .15;
+        opacity: 0.15;
         z-index: 1;
         cursor: pointer;
     }
@@ -71,7 +71,7 @@ const getSearchWord = (searchWord: string) => {
 
     :deep(.el-input__wrapper) {
         border-radius: 24px;
-        background-color: rgba(#575757, .1);
+        background-color: rgba(#575757, 0.1);
         box-shadow: none;
     }
 
@@ -85,7 +85,7 @@ const getSearchWord = (searchWord: string) => {
     }
 
     :deep(.el-input__inner::placeholder) {
-        color: rgba(#fff, .4);
+        color: rgba(#fff, 0.4);
     }
 }
 </style>

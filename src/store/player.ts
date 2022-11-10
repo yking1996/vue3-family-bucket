@@ -1,12 +1,7 @@
-import { defineStore } from "pinia";
-import API from "@/api"
-import {
-    GetSongUrlRes,
-    GetSongDetailRes,
-    CurrentSong,
-    SongDetail
-} from "@/types/api/song"
-import NP from "number-precision"
+import { defineStore } from 'pinia'
+import API from '@/api'
+import { GetSongUrlRes, GetSongDetailRes, CurrentSong, SongDetail } from '@/types/api/song'
+import NP from 'number-precision'
 import { ElMessage } from 'element-plus'
 
 export const usePlayerStore = defineStore('PlayerStore', {
@@ -34,14 +29,14 @@ export const usePlayerStore = defineStore('PlayerStore', {
     getters: {
         getSingerName(): string {
             if (this.currentSong.ar.length) {
-                const singerNameList = this.currentSong.ar.map((singer) => singer.name)
+                const singerNameList = this.currentSong.ar.map(singer => singer.name)
                 return singerNameList.join(' / ')
             }
             return '未知'
         },
         getAlubmCover(): string {
             const coverUrl = this.currentSong.al.picUrl
-            return coverUrl ? coverUrl : new URL(`../assets/img/defCover.png`, import.meta.url).href;
+            return coverUrl ? coverUrl : new URL(`../assets/img/defCover.png`, import.meta.url).href
         },
         getProgressPercent(): number {
             if (this.currentSong.dt) {
@@ -111,7 +106,9 @@ export const usePlayerStore = defineStore('PlayerStore', {
                 this.initPlayer()
                 return
             }
-            const playIndex = this.ifFirstSong ? this.playlistFinalIndex : this.getCurrentSongIndex - 1
+            const playIndex = this.ifFirstSong
+                ? this.playlistFinalIndex
+                : this.getCurrentSongIndex - 1
             this.goPlayPlaylist(playIndex)
         },
         goPlayPlaylist(playIndex: number) {
@@ -137,7 +134,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
             this.getSongUrlData(song.id)
         },
         //播放音乐
-        goPlaySong(ids: number | string, mode: number = 0) {
+        goPlaySong(ids: number | string, mode = 0) {
             this.initPlayer()
             this.getSongsDetailData(ids, mode)
         },
@@ -147,15 +144,17 @@ export const usePlayerStore = defineStore('PlayerStore', {
         //获取歌曲url
         async getSongUrlData(id: number, level?: string) {
             try {
-                let params = {
+                const params = {
                     id,
                     level: level ? level : 'standard'
                 }
-                let res: GetSongUrlRes = await API.song.getSongUrl(params)
+                const res: GetSongUrlRes = await API.song.getSongUrl(params)
                 const songUrlDetailInfo = res.data[0]
                 const standbyUrl = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
                 if (res.code === 200 && songUrlDetailInfo.code === 200) {
-                    this.currentSong.url = songUrlDetailInfo.url ? songUrlDetailInfo.url : standbyUrl
+                    this.currentSong.url = songUrlDetailInfo.url
+                        ? songUrlDetailInfo.url
+                        : standbyUrl
                 } else if (songUrlDetailInfo.code === 403) {
                     this.currentSong.url = standbyUrl
                 } else {
@@ -169,24 +168,24 @@ export const usePlayerStore = defineStore('PlayerStore', {
                 }
             } catch (error) {
                 ElMessage.error('未知错误请点击播放按钮重试或更换歌单')
-                console.log(error);
+                console.log(error)
             }
         },
-        //获取歌曲详情 mode: 0-append  1-replace list 
-        async getSongsDetailData(ids: string | number, mode: number = 0) {
+        //获取歌曲详情 mode: 0-append  1-replace list
+        async getSongsDetailData(ids: string | number, mode = 0) {
             try {
-                let params = { ids }
-                let res: GetSongDetailRes = await API.song.getSongDetail(params)
+                const params = { ids }
+                const res: GetSongDetailRes = await API.song.getSongDetail(params)
                 if (res.code === 200) {
                     mode === 1 ? this.clearPlaylist() : ''
-                    this.currentPlayList = this.currentPlayList.concat(res.songs);
+                    this.currentPlayList = this.currentPlayList.concat(res.songs)
                     //append类型播放最后一首，replace类型播放第一首
-                    let playIndex = mode === 1 ? 0 : this.playlistFinalIndex
+                    const playIndex = mode === 1 ? 0 : this.playlistFinalIndex
                     this.setSongInfoAndGetUrl(playIndex)
                 }
             } catch (error) {
-                console.log(error);
+                console.log(error)
             }
-        },
+        }
     }
 })

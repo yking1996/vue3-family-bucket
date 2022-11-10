@@ -1,60 +1,59 @@
 <template>
-    <div class="middle-area"
-        :class="!currentSong.name ? 'forbidden' : ''">
+    <div class="middle-area" :class="!currentSong.name ? 'forbidden' : ''">
         <div class="control-container">
-            <i :class="playModeGroup[currentPlayMode]['icon']"
+            <i
+                :class="playModeGroup[currentPlayMode]['icon']"
                 class="iconfont"
-                @click="changePlayMode"></i>
-            <i class="iconfont icon-previous"
-                @click="PlayerStore.goPlayPrevious"></i>
-            <i :class="ifPlaying ? 'icon-pause' : 'icon-play'"
+                @click="changePlayMode"
+            ></i>
+            <i class="iconfont icon-previous" @click="PlayerStore.goPlayPrevious"></i>
+            <i
+                :class="ifPlaying ? 'icon-pause' : 'icon-play'"
                 class="iconfont"
-                @click="changePlayingStatus"></i>
-            <i class="iconfont icon-next"
-                @click="PlayerStore.goPlayNext"></i>
+                @click="changePlayingStatus"
+            ></i>
+            <i class="iconfont icon-next" @click="PlayerStore.goPlayNext"></i>
             <i class="iconfont icon-lyric"></i>
         </div>
         <div class="progress-container">
             <span>{{ formatMusicTime(currentTime) }}</span>
-            <el-slider v-model="sliderProgress"
+            <el-slider
+                v-model="sliderProgress"
                 :show-tooltip="false"
                 @input="sliderInput"
-                @change="sliderChange" />
+                @change="sliderChange"
+            />
             <span>{{ formatMusicTime(currentSong.dt) }}</span>
         </div>
-        <audio :src="currentSong.url"
+        <audio
+            :src="currentSong.url"
             :autoplay="false"
             ref="audioRef"
             style="margin-top: 20px"
             @timeupdate="onTimeupdate"
-            @ended="onEnded"></audio>
+            @ended="onEnded"
+        ></audio>
     </div>
 </template>
 
 <script setup lang="ts">
-import { playModeGroup } from "@/types/layout/player"
-import { usePlayerStore } from "@/store/player"
+import { playModeGroup } from '@/types/layout/player'
+import { usePlayerStore } from '@/store/player'
 import { storeToRefs } from 'pinia'
-import { formatMusicTime } from "@/utils"
-import { Arrayable } from "element-plus/es/utils"
-import NP from "number-precision"
+import { formatMusicTime } from '@/utils'
+import { Arrayable } from 'element-plus/es/utils'
+import NP from 'number-precision'
 const PlayerStore = usePlayerStore()
-const {
-    currentTime,
-    ifPlaying,
-    currentSong,
-    getProgressPercent,
-    getAudioCurrentVolume
-} = storeToRefs(PlayerStore)
+const { currentTime, ifPlaying, currentSong, getProgressPercent, getAudioCurrentVolume } =
+    storeToRefs(PlayerStore)
 const currentPlayMode = ref(0)
 const audioRef = ref<HTMLAudioElement>()
 const changePlayingStatus = () => {
     PlayerStore.setIfPlaying(!PlayerStore.ifPlaying)
 }
 const changePlayMode = () => {
-    let ifFinal = currentPlayMode.value === playModeGroup.length - 1;
+    const ifFinal = currentPlayMode.value === playModeGroup.length - 1
     currentPlayMode.value = ifFinal ? 0 : currentPlayMode.value + 1
-
 }
 /**
  * 弃用sliderProgress的computed,改用watch监听
@@ -65,7 +64,7 @@ const changePlayMode = () => {
  */
 const sliderProgress = ref(0)
 const ifDragging = ref(false)
-watch(getProgressPercent, (newVal) => {
+watch(getProgressPercent, newVal => {
     if (!ifDragging.value) {
         sliderProgress.value = newVal
     }
@@ -76,7 +75,10 @@ const sliderInput = () => {
 const sliderChange = (val: Arrayable<number>) => {
     ifDragging.value = false
     // val百分比: [0, 100]    val% * (歌曲时长ms=> 歌曲时长s)
-    audioRef.value!.currentTime = NP.times(NP.divide((val as number), 100), NP.divide(currentSong.value.dt, 1000))
+    audioRef.value!.currentTime = NP.times(
+        NP.divide(val as number, 100),
+        NP.divide(currentSong.value.dt, 1000)
+    )
 }
 const onTimeupdate = () => {
     PlayerStore.setCurrentTime(NP.times(audioRef.value!.currentTime, 1000))
@@ -87,7 +89,7 @@ const onEnded = () => {
     setTimeout(() => {
         ifDragging.value = false
         sliderProgress.value = 0
-    }, 1);
+    }, 1)
 }
 watch(ifPlaying, async (newValue, oldValue) => {
     //如果不等待dom更新,audio上的src: currentSong.url不会同步刷新
@@ -127,7 +129,7 @@ watch(getAudioCurrentVolume, newVal => {
     justify-content: center;
     align-items: center;
 
-    i+i {
+    i + i {
         margin-left: 33px;
         line-height: 1;
     }
@@ -145,9 +147,9 @@ watch(getAudioCurrentVolume, newVal => {
     .icon-pause,
     .icon-play {
         font-size: 36px;
-        color: #F1F1F1;
+        color: #f1f1f1;
         position: relative;
-        opacity: .9;
+        opacity: 0.9;
     }
 
     .icon-pause::after,
@@ -172,8 +174,8 @@ watch(getAudioCurrentVolume, newVal => {
     display: flex;
     align-items: center;
 
-    >span {
-        color: #B3B3B3;
+    > span {
+        color: #b3b3b3;
         font-size: 12px;
     }
 
@@ -195,7 +197,7 @@ watch(getAudioCurrentVolume, newVal => {
     :deep(.el-slider__button) {
         opacity: 0;
         background-color: var(--el-slider-main-bg-color);
-        transition: .05s
+        transition: 0.05s;
     }
 
     :deep(.el-slider:hover .el-slider__button) {

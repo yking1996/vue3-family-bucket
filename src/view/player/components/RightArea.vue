@@ -1,28 +1,25 @@
 <template>
     <div class="right-area">
-        <el-popover placement="top"
-            :width="30"
-            trigger="hover"
-            popper-class="volume-popover">
+        <el-popover placement="top" :width="30" trigger="hover" popper-class="volume-popover">
             <template #reference>
-                <i class="iconfont"
+                <i
+                    class="iconfont"
                     :class="currentVolume === 0 ? 'icon-mute' : 'icon-volume-ctrl'"
-                    @click="controlMute"></i>
+                    @click="controlMute"
+                ></i>
             </template>
             <div class="volume-slider">
-                <el-slider v-model="currentVolume"
-                    :show-tooltip="false"
-                    vertical
-                    height="80px" />
+                <el-slider v-model="currentVolume" :show-tooltip="false" vertical height="80px" />
             </div>
         </el-popover>
-        <i class="iconfont icon-playlist"
-            @click="drawerVisible = !drawerVisible"></i>
+        <i class="iconfont icon-playlist" @click="drawerVisible = !drawerVisible"></i>
         <div class="drawer-container">
-            <el-drawer v-model="drawerVisible"
+            <el-drawer
+                v-model="drawerVisible"
                 :with-header="false"
                 custom-class="playlist-drawer"
-                :size="420">
+                :size="420"
+            >
                 <div class="drawer-header">
                     <span>当前播放</span>
                     <div class="header-ctrl">
@@ -37,14 +34,18 @@
                 </div>
                 <div class="drawer-content">
                     <el-scrollbar max-height="689px">
-                        <div v-for="(song, songIndex) in currentPlayList"
+                        <div
+                            v-for="(song, songIndex) in currentPlayList"
                             :key="song.id"
                             class="playlist-item"
-                            :class="{ 'isPlaying': currentSong.id === song.id }"
-                            @dblclick="onPlaySelectedSong(songIndex)">
+                            :class="{ isPlaying: currentSong.id === song.id }"
+                            @dblclick="onPlaySelectedSong(songIndex)"
+                        >
                             <div class="item-song-name">
-                                <i v-if="currentSong.id === song.id"
-                                    class="iconfont icon-right-arrow"></i>
+                                <i
+                                    v-if="currentSong.id === song.id"
+                                    class="iconfont icon-right-arrow"
+                                ></i>
                                 <div>
                                     <span>{{ song.name }}</span>
                                     <span v-if="song.alia?.length">({{ song.alia[0] }})</span>
@@ -64,15 +65,11 @@
 </template>
 
 <script setup lang="ts">
-import { usePlayerStore } from "@/store/player"
+import { usePlayerStore } from '@/store/player'
 import { storeToRefs } from 'pinia'
-import { formatMusicTime, formatSinger } from "@/utils"
+import { formatMusicTime, formatSinger } from '@/utils'
 const PlayerStore = usePlayerStore()
-const {
-    currentVolume,
-    currentPlayList,
-    currentSong
-} = storeToRefs(PlayerStore)
+const { currentVolume, currentPlayList, currentSong } = storeToRefs(PlayerStore)
 const controlMute = () => {
     currentVolume.value = currentVolume.value === 0 ? 100 : 0
 }
@@ -97,12 +94,12 @@ const onPlaySelectedSong = (songIndex: number) => {
     align-items: center;
     padding-right: 12px;
 
-    >i {
+    > i {
         line-height: 1;
         cursor: pointer;
     }
 
-    >i+i {
+    > i + i {
         margin-left: 16px;
     }
 
@@ -133,7 +130,7 @@ const onPlaySelectedSong = (songIndex: number) => {
 
     :deep(.el-slider__button) {
         background-color: var(--el-slider-main-bg-color);
-        transition: .05s
+        transition: 0.05s;
     }
 }
 
@@ -157,7 +154,7 @@ const onPlaySelectedSong = (songIndex: number) => {
     .drawer-header {
         padding: 20px 0 12px;
         margin: 0 20px;
-        border-bottom: 1px solid #F3F3F3;
+        border-bottom: 1px solid #f3f3f3;
         width: calc(100% - 40px);
         height: 90px;
         display: flex;
@@ -165,7 +162,7 @@ const onPlaySelectedSong = (songIndex: number) => {
         justify-content: space-between;
         overflow: hidden;
 
-        >span {
+        > span {
             font-size: 20px;
             font-family: '黑体';
             font-weight: bold;
@@ -177,21 +174,21 @@ const onPlaySelectedSong = (songIndex: number) => {
             justify-content: space-between;
             align-items: flex-end;
 
-            >span {
-                color: #CCCCCC;
+            > span {
+                color: #cccccc;
                 font-size: 12px;
                 line-height: 1;
             }
 
-            >div {
+            > div {
                 line-height: 1;
 
                 span {
                     font-size: 14px;
                 }
 
-                >span {
-                    color: #507DAF;
+                > span {
+                    color: #507daf;
                     cursor: pointer;
                 }
 
@@ -210,7 +207,6 @@ const onPlaySelectedSong = (songIndex: number) => {
     .drawer-content {
         width: 100%;
         height: calc(100% - 90px);
-
     }
 
     .playlist-item {
@@ -219,7 +215,7 @@ const onPlaySelectedSong = (songIndex: number) => {
         padding: 0 20px;
         display: flex;
         align-items: center;
-        user-select:none;
+        user-select: none;
 
         .text-ellipsis {
             overflow: hidden;
@@ -234,7 +230,7 @@ const onPlaySelectedSong = (songIndex: number) => {
             font-size: 12px;
             position: relative;
 
-            >div {
+            > div {
                 max-width: 130px;
                 display: flex;
 
@@ -250,7 +246,7 @@ const onPlaySelectedSong = (songIndex: number) => {
                 }
 
                 span:nth-child(2) {
-                    color: #D3D3D3;
+                    color: #d3d3d3;
                 }
             }
 
@@ -294,20 +290,20 @@ const onPlaySelectedSong = (songIndex: number) => {
             width: calc(100% - 309px);
             font-size: 12px;
             padding-left: 9px;
-            color: #D3D3D3;
+            color: #d3d3d3;
         }
     }
 
     .playlist-item:nth-child(2n + 1) {
-        background-color: #FAFAFA;
+        background-color: #fafafa;
     }
     .playlist-item:hover {
-        background-color: #F5F5F5;
+        background-color: #f5f5f5;
     }
 
     .isPlaying {
         .item-song-name {
-            >div {
+            > div {
                 span:first-child {
                     color: $theme-primary;
                 }
@@ -318,7 +314,6 @@ const onPlaySelectedSong = (songIndex: number) => {
             color: $theme-primary;
         }
     }
-
 }
 </style>
 <style lang="scss">
